@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   text-align: center;
 }
@@ -36,3 +40,9 @@
     transform: rotate(360deg);
   }
 }
+
+
+.clip-rect {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 50%);
+}
+
