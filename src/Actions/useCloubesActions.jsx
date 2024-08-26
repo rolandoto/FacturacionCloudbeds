@@ -60,14 +60,13 @@ const useCloubesActions =() =>{
     
         if(response){
                     dispatch(setGeReservationCloubeds(response)) 
-                    toast.success("exitoso")
+                    
         }else{
                     dispatch(setErrorReservationCloubeds("no found"))
-                    toast.error("error")
+                    
         }
         } catch (error) {
                     dispatch(setErrorReservationCloubeds("no found"))
-                    toast.error("error el el servicio getReservationCloubeds",error)
         }
     }
 
@@ -79,14 +78,14 @@ const useCloubesActions =() =>{
              
                 if(response){
                             dispatch(setGeReservationDetailCloubeds(response)) 
-                            toast.success("exitoso")
+                          
                 }else{
                             dispatch(setErrorReservationDetailCloubeds("no found"))
-                            toast.error("error")
+                            
                 }
                 } catch (error) {
                             dispatch(setErrorReservationDetailCloubeds("no found"))
-                        toast.error("error el el servicio getReservationDetailCloubeds",error)
+                      
             }
     }
 
@@ -141,11 +140,11 @@ const useCloubesActions =() =>{
                           
                 }else{
                             dispatch(setErrorGetRegisterCloubesd("no found"))
-                            toast.error("error")
+                           
                 }
                 } catch (error) {
                             dispatch(setErrorGetRegisterCloubesd("no found"))
-                        toast.error("error el el servicio getRegisterCloubeds",error)
+                       
             }
     }
 
@@ -186,11 +185,11 @@ const useCloubesActions =() =>{
                           
                 }else{
                             dispatch(setErrorGetPaymentCloubeds("no found"))
-                            toast.error("error")
+                          
                 }
                 } catch (error) {
                             dispatch(setErrorGetPaymentCloubeds("no found"))
-                        toast.error("error el el servicio getRegisterCloubeds",error)
+                       
             }
     }
 

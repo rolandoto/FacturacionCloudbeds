@@ -243,8 +243,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
             await GetCLientDian({ token: dian.access_token, document: searchTerm });
         }
         } catch (error) {
-            console.log("error")
-        console.error('Error fetching search results:', error);
+       
         }
     };
 
@@ -260,7 +259,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
             fetData()
     },[])
 
-    console.log(items)
 
     const DateExit = moment().utc().format('YYYY-MM-DD')
 

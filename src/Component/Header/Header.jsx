@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import  AutoProvider  from "../../UseContext.js/Autoprovider";
 import { FaRegCreditCard } from "react-icons/fa6";
 import { useDebounce } from "use-debounce";
+import { Spinner } from "@nextui-org/react";
 
 const Header =()  =>{
 
@@ -105,8 +106,10 @@ const Header =()  =>{
                     placeholder="Buscar reservas, huéspedes y más"
                     className="w-[40%] bg-white text-black  left-0 m-auto right-0 absolute  p-2  rounded-lg"
                     />
+                
                     {showContextMenu && 
                     <div className="styled-context-menu-search" >
+                        {loadingReservationCloubeds  ? <Spinner  /> : <>
                             {HotelCloubedsReservation.map((item) => {
                                 return (
                                     <div  onClick={() => handleNextReservation(item.reservationID)} className="styled-menu-item flex justify-between  items-center space-x-2 p-2">
@@ -131,7 +134,8 @@ const Header =()  =>{
                                     </div>
                                     </div>
                                 );
-                                })}         
+                                })} 
+                           </> }        
                         </div>
                         }
                     </div>

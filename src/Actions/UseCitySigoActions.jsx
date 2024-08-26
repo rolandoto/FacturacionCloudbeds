@@ -50,7 +50,7 @@ const UseCitySigoActions =() =>{
             }
         } catch (error) {
             dispatch(setErrorClient("no found")) 
-            console.log("eoijdsaiosaoid")
+          
         }
     }
 
@@ -67,7 +67,7 @@ const UseCitySigoActions =() =>{
             }
         } catch (error) {
             dispatch(setErrorInvoince("no found")) 
-            console.log("eoijdsaiosaoid")
+          
         }
     }
 

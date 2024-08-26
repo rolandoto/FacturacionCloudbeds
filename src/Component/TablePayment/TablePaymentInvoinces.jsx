@@ -61,7 +61,6 @@ const TablePaymentInvoinces =() =>{
                                       const downloadLink = document.createElement("a");
                                       const fileName = "file.pdf";
                                       downloadLink.href = linkSource;
-                                      console.log(downloadLink.href)
                                       downloadLink.download = fileName;
                                       downloadLink.click();
                                   } else {
