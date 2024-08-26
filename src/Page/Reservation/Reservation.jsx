@@ -31,16 +31,9 @@ const Reservation =() =>{
     } =useSelector((state) => state.Cloubeds)
      const {jwt} = useContext(AutoProvider)
 
-    const fetData =async() =>{
-        await getReservationCloubeds({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID})
-    }
 
-    useEffect(() =>{
-        fetData()
-    },[])
-    
 
-    const today = moment().format('YYYY-MM-DD');
+   /* const today = moment().format('YYYY-MM-DD');
  
     const tomorrow = moment().add(1, 'days').format('YYYY-MM-DD');
    
@@ -53,9 +46,9 @@ const Reservation =() =>{
       const formattedDateRange = formatDateRange(value);
 
       const navigate = useNavigate();
-
+*/
     
-	const filtrarPorFechas = ( fechaDesde, fechaHasta) => {
+/*	const filtrarPorFechas = ( fechaDesde, fechaHasta) => {
 		// Convertir las fechas de rango a objetos moment y ajustar el formato
 		const startDate = moment(fechaDesde).startOf('day');
 		const endDate = moment(fechaHasta).endOf('day');
@@ -72,54 +65,11 @@ const Reservation =() =>{
 				(fechaInicio.isBefore(startDate) && fechaFin.isAfter(endDate))
 			);
 		});
-	};
+	};*/
 
-	const resultados = filtrarPorFechas( formattedDateRange.start, formattedDateRange.end);
-  
-    const fillContent =()=>{
-        if(loadingReservationCloubeds){
-          return <p>Cargando</p>
-        }
-        if(errorgetReservationcloubeds){
-          return <p>Error </p>
-      }
-
-      return <>  {resultados.map((event, index) => {
-                    console.log(event)
-                    const goToReservation = () => {
-                        navigate(`/reservation/${event.reservationID}`);
-                    };
-        
-                    if(event.status =="checked_out"){
-                        return <div 
-                                        onClick={goToReservation}
-                                    className=" bg-[#9a9e9f] relative cursor-pointer text-white p-2 rounded-md"
-                                        key={index}>
-                                            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 rounded-full"></span> 
-                                        {event.guestName}
-                                        <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 rounded-full"></span>
-                                        </div>
-                    }else  if(event.status =="checked_in"){
-                        return <div 
-                                    onClick={goToReservation}
-                                    className=" bg-[#45b16d] cursor-pointer relative text-white p-2 rounded-md"
-                                        key={index}>
-                                            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 rounded-full"></span> 
-                                        {event.guestName}
-                                        <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 rounded-full"></span>
-                                        </div>
-                                }
-
-                }
-                  
-    )}</>
-    }
-
-    return (<>
-            <div className=" flex justify-between items-center bg-gray-100 p-4">
-                <Header/>
-            </div>
-            <div className="flex p-4 w-full flex-wrap md:flex-nowrap gap-4">
+	//const resultados = filtrarPorFechas( formattedDateRange.start, formattedDateRange.end);
+    /*
+ <div className="flex p-4 w-full flex-wrap md:flex-nowrap gap-4">
             <DateRangePicker
                 defaultValue={{
                     start: parseDate("2024-04-01"),
@@ -133,9 +83,29 @@ const Reservation =() =>{
                 visibleMonths={2}
                 />
                 </div>
-            <div className="grid p-4 grid-cols-5 gap-5">
-           
-               {fillContent()}
+
+    */
+
+
+    return (<>
+            <div className=" flex justify-between items-center bg-gray-100 p-4">
+                <Header/>
+            </div>
+    
+            <div className="min-h-screen flex items-center justify-center ">
+                    <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
+                    <div className="text-center">
+                        <img
+                        className="mx-auto h-12 w-auto"
+                        src="https://hotels.cloudbeds.com/assets/home/images/cloudbeds_nebula_logo.png"
+                        alt="Cloudbeds Logo"
+                        />
+                        <h2 className="mt-6 text-center text-1xl  text-gray-900">
+                        Bienvenido al sistema de facturación electrónica de Cloudbeds.
+                        </h2>
+                    </div>
+                    </div>
+                
             </div>
         </>)
 

@@ -21,8 +21,7 @@ const DetailReservation =() =>{
 
     useEffect(() =>{
         fetData()
-    },[])
-
+    },[id])
 
     const fillContent =()=>{
         if(loadingReservationDetailCloubeds){
@@ -33,12 +32,10 @@ const DetailReservation =() =>{
       }
 
       return <> {HotelCloubedsReservationDetail.map((item,index) =><CardDetailReservation key={index} {...item} />)} </>
-
     }
 
-
     return (<>
-               <div className=" flex justify-between items-center bg-white p-4">
+               <div className=" flex justify-between bg-gray-100  items-center  p-4">
                 <Header/>
                  </div>
                 {fillContent()}

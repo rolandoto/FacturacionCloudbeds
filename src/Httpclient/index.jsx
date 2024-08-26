@@ -77,14 +77,14 @@ const PostGetHotelCloudbeds = async ({propertyID,token}) => {
   }
 };
 
-const PostGetReservationBypropertyID = async ({propertyID,token}) => {
+const PostGetReservationBypropertyID = async ({propertyID,token,search}) => {
   try {
       const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/getReservationBypropertyID`, {
           method: "POST",
           headers: {
               'Content-type': 'application/json',
           },
-          body:JSON.stringify({propertyID,token})
+          body:JSON.stringify({propertyID,token,search})
       });
       if (!resp.ok) {
           throw new Error('Response is not ok');

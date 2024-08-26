@@ -53,10 +53,10 @@ const useCloubesActions =() =>{
     }
     
 
-    const getReservationCloubeds =async({token,propertyID}) =>{
+    const getReservationCloubeds =async({token,propertyID,search}) =>{
         dispatch(setLoadingReservationCloubeds())
         try {
-        const response =   await Httpclient.PostGetReservationBypropertyID({token,propertyID})
+        const response =   await Httpclient.PostGetReservationBypropertyID({token,propertyID,search})
     
         if(response){
                     dispatch(setGeReservationCloubeds(response)) 
@@ -71,7 +71,7 @@ const useCloubesActions =() =>{
         }
     }
 
-
+    
     const getReservationDetailCloubeds =async({token,propertyID,reservationID}) =>{
         dispatch(setLoadingReservationDetailCloubeds())
             try {
