@@ -13,7 +13,7 @@ code {
 }
 .footer {
   position: fixed;
-  left: 16px;
+  right: 16px;
   bottom: 16px;
   text-align: left;
   background: #ffffff;
