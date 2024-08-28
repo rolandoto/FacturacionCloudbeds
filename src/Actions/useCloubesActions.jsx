@@ -111,9 +111,10 @@ const useCloubesActions =() =>{
 
     const PostRegisterCloubeds =async({ID_Tipo_documento,ID_city,ReservationID,token,body}) =>{
         dispatch(setLoadingRegisterCloubesd())
+        
             try {
                 const response =   await Httpclient.PostRegisterCloubeds({ID_Tipo_documento,ID_city,ReservationID,token,body})
-                             
+                window.location.reload()  
                 if(response){
                             dispatch(setRegisterCloubesd(response)) 
                             toast(<div className="text-green-500" >Se registro </div>)
@@ -205,7 +206,9 @@ const useCloubesActions =() =>{
 
                 if(response){
                             dispatch(setGetRegisterSigo(response)) 
+                           
                             toast(<div className="text-green-500" >Se registro </div>)
+                            window.location.reload()
 
                 }else{
                             dispatch(setErrorRegisterSigo("no found"))
@@ -228,7 +231,8 @@ const useCloubesActions =() =>{
         getRegisterCloubeds,
         PostPaymentCloubeds,
         GetPaymentCloubedsActions,
-        PostRegisterSigoCloudbeds
+        PostRegisterSigoCloudbeds,
+        dispatch
     }
 
 }
