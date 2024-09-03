@@ -6,6 +6,7 @@ import  AutoProvider  from "../../UseContext.js/Autoprovider"
 import { useSelector } from "react-redux"
 import CardDetailReservation from "../../Component/CardDetailReservation/CardDetailReservation"
 import { Footer } from "../../Component/Footer/Footer"
+import { Toaster } from "sonner"
 
 const DetailReservation =() =>{
   
@@ -37,6 +38,7 @@ const DetailReservation =() =>{
     return (<>
                <div className=" flex justify-between bg-gray-100  items-center  p-4">
                 <Header/>
+                <Toaster richColors  />
                  </div>
                 {fillContent()}
                 <Footer />

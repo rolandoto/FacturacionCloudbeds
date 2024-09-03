@@ -19,7 +19,11 @@ const initialState={
 
     pdf:[],
     LoadingPdf:false,
-    ErrorPdf:false
+    ErrorPdf:false,
+
+    forwardEmail:[],
+    loadingforwardEmail:false,
+    ErrorForwardEmail:false
 
 }
 
@@ -97,6 +101,21 @@ export const CitySigoSlice = createSlice({
         setErrorPdf:(state,action) =>{
             state.LoadingPdf = false
             state.ErrorPdf = true
+        },
+
+    
+        
+        loadingForwardEmail:(state) =>{
+            state.loadingforwardEmail =true
+            state.ErrorForwardEmail = false
+        },
+        setForwardEmail:(state,action) =>{
+            state.forwardEmail =action.payload
+            state.loadingforwardEmail =false
+        },
+        setErrorForwardEmail:(state,action) =>{
+            state.loadingforwardEmail = false
+            state.ErrorForwardEmail = true
         }
     }
 })
@@ -115,6 +134,9 @@ export const {loadingCitySigo,
                 setErrorInvoince,
                 loadingPdf,
                 setPdf,
-                setErrorPdf} = CitySigoSlice.actions
+                setErrorPdf,
+                loadingForwardEmail,
+                setForwardEmail,
+                setErrorForwardEmail} = CitySigoSlice.actions
 
 export default CitySigoSlice.reducer

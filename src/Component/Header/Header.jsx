@@ -77,9 +77,6 @@ const Header =()  =>{
     };
     
 
-    console.log(jwt)
-
-
     const fillContent =()=>{
         if(loadingGetHotelCloubeds){
           return <p>Cargando</p>

@@ -259,6 +259,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
             fetData()
     },[])
 
+    
 
     const DateExit = moment().utc().format('YYYY-MM-DD')
 
@@ -300,7 +301,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       additional_fields: {}
     };  
 
-    console.log(items)
 
     const handleInvoiceSubmission =async() =>{
         if(DiscountSubTotal ==0){

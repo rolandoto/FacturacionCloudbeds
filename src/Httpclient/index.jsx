@@ -348,6 +348,30 @@ const GetSalesInvoice= async({token,id}) => {
 };
 
 
+const PostForwardEmail= async({token,id,Email_to,Copy_to}) => {
+
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/FowrwardEmail`, {
+      method: "POST",
+      body: JSON.stringify({token,id,Email_to,Copy_to}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    console.log(resp)
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const data = await resp.json();
+    return data
+    
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
+
 
   export default {
     GetListHotel,
@@ -366,6 +390,7 @@ const GetSalesInvoice= async({token,id}) => {
     GetProducts,
     GetLisClienteDian,
     GetInvoincesByReservationDian,
-    GetSalesInvoice
+    GetSalesInvoice,
+    PostForwardEmail
   }
 

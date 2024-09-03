@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux"
 import Httpclient from "../Httpclient"
-import { loadingCitySigo, loadingClient, loadingInvoince, loadingPdf, loadingProductDian, setCitySigo, setClient, setErrorCitySigo, setErrorClient, setErrorInvoince, setErrorPdf, setErrrorProductDian, setInvoince, setPdf, setProductDian } from "../reducers/ApiCitySigo"
+import { loadingCitySigo, loadingClient, loadingForwardEmail, loadingInvoince, loadingPdf, loadingProductDian, setCitySigo, setClient, setErrorCitySigo, setErrorClient, setErrorForwardEmail, setErrorInvoince, setErrorPdf, setErrrorProductDian, setForwardEmail, setInvoince, setPdf, setProductDian } from "../reducers/ApiCitySigo"
+import { toast } from "sonner"
 
 const UseCitySigoActions =() =>{
 
@@ -90,12 +91,32 @@ const UseCitySigoActions =() =>{
     }
 
 
+    const PostForwardEmail =async({token,id,Email_to,Copy_to}) =>{
+        dispatch(loadingForwardEmail())
+        try {
+            const response =  await  Httpclient.PostForwardEmail({token,id,Email_to,Copy_to})
+           
+            if(response){
+                dispatch(setForwardEmail(response))
+                toast.success('EL CORREO SE ENVIÓ EXITOSAMENTE.')
+            }else{
+               dispatch(setErrorForwardEmail("error no found"))
+               toast.error('ERROR EN EL ENVIÓ EL CORREO')
+            }
+        } catch (error) {
+            console.log(error)
+            dispatch(setErrorForwardEmail("error no found"))
+            toast.info('ERROR EN EL ENVIÓ EL CORREO')
+        }
+    }
+
     return {
         getCitySigo,
         getProductDian,
         GetCLientDian,
         GetInvoince,
-        getPdfSigo
+        getPdfSigo,
+        PostForwardEmail
     }
 
 }
