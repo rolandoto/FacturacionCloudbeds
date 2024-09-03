@@ -28,7 +28,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
 
 
 
-    const  {PostPaymentCloubeds,GetPaymentCloubedsActions,getReservation} = useCloubesActions()
+    const  {PostPaymentCloubeds,GetPaymentCloubedsActions,getReservation,dispatch} = useCloubesActions()
     const  {getProductDian,GetCLientDian} = UseCitySigoActions()
 
     const {ProductDian,loadingProductDian,ErrorProductDian} =useSelector((state) => state.CitySigoSlice)
@@ -299,6 +299,8 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       payments,
       additional_fields: {}
     };  
+
+    console.log(items)
 
     const handleInvoiceSubmission =async() =>{
         if(DiscountSubTotal ==0){

@@ -75,7 +75,11 @@ const Header =()  =>{
         setShowContextMenu(false)
         navigate(`/reservation/${reservationID}`);
     };
-  
+    
+
+    console.log(jwt)
+
+
     const fillContent =()=>{
         if(loadingGetHotelCloubeds){
           return <p>Cargando</p>
@@ -98,6 +102,7 @@ const Header =()  =>{
                     />
                     <span className="font-semibold">{HotelCloubeds?.propertyType} {HotelCloubeds?.propertyName} </span>
                     </div>
+                   
                 </div>
                 <div className="flex items-center flex-grow max-w-lg mx-auto">
                     <input
@@ -142,6 +147,9 @@ const Header =()  =>{
                     
              
                 <div className="flex items-center">
+                        <div className="mr-4 p-2">
+                           <span className="status-dot" ></span>  <span className="font-semibold"  >{jwt?.result?.name}</span>
+                        </div>
                     <button className="mr-4 p-2">
                         <IoIosAddCircle color="#3366ff" fontSize={25} />
                     </button>

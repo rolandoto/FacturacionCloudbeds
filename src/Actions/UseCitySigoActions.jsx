@@ -85,9 +85,7 @@ const UseCitySigoActions =() =>{
                dispatch(setErrorPdf("error no found"))
             }
         } catch (error) {
-          
             dispatch(setErrorPdf("error no found"))
-           
         }
     }
 

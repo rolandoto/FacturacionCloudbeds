@@ -8,9 +8,9 @@ import CardDetailReservation from "../../Component/CardDetailReservation/CardDet
 import { Footer } from "../../Component/Footer/Footer"
 
 const DetailReservation =() =>{
-
+  
    const {id} =useParams()
-    const {getReservationDetailCloubeds} = useCloubesActions()
+    const {getReservationDetailCloubeds,dispatch} = useCloubesActions()
     const {HotelCloubedsReservationDetail,loadingReservationDetailCloubeds,errorgetReservationDetailcloubeds
     } =useSelector((state) => state.Cloubeds)
      const {jwt} = useContext(AutoProvider)
