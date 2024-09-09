@@ -372,6 +372,26 @@ const PostForwardEmail= async({token,id,Email_to,Copy_to}) => {
 };
 
 
+const RatesDollar  = async () => {
+  try {
+    const resp = await fetch(`https://v6.exchangerate-api.com/v6/f024262e246f3d02bf6498f1/latest/USD`, {
+      method: "GET",
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+    if (resp.result !="error") {
+      throw new Error('Response is not ok');
+    }
+    const data = await resp.json();
+    return data
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
+  }
+};
+
+
 
   export default {
     GetListHotel,
@@ -391,6 +411,7 @@ const PostForwardEmail= async({token,id,Email_to,Copy_to}) => {
     GetLisClienteDian,
     GetInvoincesByReservationDian,
     GetSalesInvoice,
-    PostForwardEmail
+    PostForwardEmail,
+    RatesDollar
   }
 

@@ -48,7 +48,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     
     const totalAmount = sumWithInitial +sumWithInitialMinibar
 
-    const totalPrice= parseInt(subTotal)
+    const totalPrice=  parseInt(subTotal)
     const typeIva=checkedItem3
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
@@ -74,6 +74,9 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
             return  item
         }}
     );
+
+
+
 
     //Consumo
     const itemIvaIpoconsumo = useMemo(() => {
@@ -198,6 +201,8 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
 
     const valuePymentIpoconsumo = checkedItem2 ? ItemIpoconsumoTotal : valuesPayments
 
+    console.log(valuePymentIpoconsumo)
+
 
     const payments =[{
         id: jwt?.result?.id_payment,
@@ -301,6 +306,8 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       additional_fields: {}
     };  
 
+
+    console.log(items)
 
     const handleInvoiceSubmission =async() =>{
         if(DiscountSubTotal ==0){
