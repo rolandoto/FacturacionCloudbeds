@@ -30,6 +30,8 @@ const useListHotel =() =>{
         dispatch(setLoadingDollar())
         try {
            const response =   await Httpclient.RatesDollar()
+
+           console.log(response)
            console.log(response)
            if(response){
                     dispatch(setDollar(response)) 

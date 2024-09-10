@@ -380,7 +380,7 @@ const RatesDollar  = async () => {
         'Content-type': 'application/json'
       }
     });
-    if (resp.result !="error") {
+    if (resp.result =="error") {
       throw new Error('Response is not ok');
     }
     const data = await resp.json();
