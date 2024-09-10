@@ -11,6 +11,7 @@ import  AutoProvider  from "../../UseContext.js/Autoprovider";
 import { FaRegCreditCard } from "react-icons/fa6";
 import { useDebounce } from "use-debounce";
 import { Spinner } from "@nextui-org/react";
+import { FaDollarSign } from "react-icons/fa";
 
 const Header =()  =>{
 
@@ -30,6 +31,11 @@ const Header =()  =>{
 
     const goToCalendar = () => {
         navigate(`/connect/${jwt?.result?.propertyID}#/calendar`);
+    };
+
+
+    const goToDashboard = () => {
+        navigate(`/dashboard`);
     };
 
     const fetData =async() =>{
@@ -148,7 +154,7 @@ const Header =()  =>{
                            <span className="status-dot" ></span>  <span className="font-semibold"  >{jwt?.result?.name}</span>
                         </div>
                     <button className="mr-4 p-2">
-                        <IoIosAddCircle color="#3366ff" fontSize={25} />
+                        <FaDollarSign color="#3366ff" fontSize={25} onClick={goToDashboard} />
                     </button>
                     <button className="mr-4 p-2"  onClick={goToCalendar} > 
                         <FaRegCalendarAlt fontSize={18} />

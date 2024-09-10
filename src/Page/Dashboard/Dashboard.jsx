@@ -46,12 +46,8 @@ const Dashboard = () =>{
             <div className="min-h-screen flex items-center justify-center bg-gray-100">
               <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg">
                 <div className="text-center">
-                  <img
-                    className="mx-auto h-12 w-auto"
-                    src="https://hotels.cloudbeds.com/assets/home/images/cloudbeds_nebula_logo.png"
-                    alt="Cloudbeds Logo"
-                  />
-                  
+                
+                  <span className="font-semibold text-[30px]" >Conversion autorizada</span>
                   {/* Campo de entrada */}
                   <div className="my-4">
                     <input
@@ -72,13 +68,8 @@ const Dashboard = () =>{
                       {amountInUsd.toLocaleString()} USD equivale a: ${newAmountInCop.toLocaleString()} COP
                     </p>
                   </div>
-        
-                  <h2 className="mt-6 text-center text-xl font-medium text-gray-900">
-                    Bienvenido al sistema de facturación electrónica de Cloudbeds.
-                  </h2>
                 </div>
               </div>
-        
               {/* Pie de página */}
               <footer className="absolute bottom-0 w-full text-center py-4 bg-gray-100 text-gray-600 text-sm">
                 &copy; {new Date().getFullYear()} Cloudbeds. Todos los derechos reservados.
