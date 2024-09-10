@@ -12,6 +12,15 @@ const Dashboard = () =>{
     } =useSelector((state) => state.listHotel)
 
   
+    function formatAmountInCOP(amount) {
+        const newAmountInCop = amount.toLocaleString('es-CO', {
+          style: 'currency',
+          currency: 'COP',
+          minimumFractionDigits: 3
+        });
+        return newAmountInCop;
+      }
+
     const FechDate =async() =>{
         await getDollar()
       }
@@ -41,7 +50,9 @@ const Dashboard = () =>{
           const amountInCop = parseInt(amountInUsd) * usdToCopRate; // Convertir el valor de USD a COP
           const newUsdToCopRate = usdToCopRate - 500; // Restar 500 pesos a la tasa de cambio
           const newAmountInCop =  parseInt(amountInUsd) * newUsdToCopRate; // Calcular el nuevo valor en pesos con la tasa ajustada
-    
+          
+        const amount = formatAmountInCOP(newAmountInCop)
+
           return (
             <div className="min-h-screen flex items-center justify-center bg-gray-100">
               <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg">
@@ -65,7 +76,7 @@ const Dashboard = () =>{
                     <p>{amountInUsd.toLocaleString()} USD equivale a <strong>{amountInCop.toLocaleString()}</strong> COP</p>
                     <p className="font-bold text-lg mt-2 text-gray-800">Con una tasa de cambio restada en 500 pesos:</p>
                     <p className="font-bold text-2xl text-blue-600 mt-1">
-                      {amountInUsd.toLocaleString()} USD equivale a: ${newAmountInCop.toLocaleString()} COP
+                      {amountInUsd.toLocaleString()} USD equivale a:{amount} COP
                     </p>
                   </div>
                 </div>
