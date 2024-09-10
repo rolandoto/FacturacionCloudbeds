@@ -43,8 +43,8 @@ const Dashboard = () =>{
           const newAmountInCop =  parseInt(amountInUsd) * newUsdToCopRate; // Calcular el nuevo valor en pesos con la tasa ajustada
     
           return (
-            <div className="min-h-screen flex items-center justify-center ">
-              <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-md">
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+              <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg">
                 <div className="text-center">
                   <img
                     className="mx-auto h-12 w-auto"
@@ -55,23 +55,34 @@ const Dashboard = () =>{
                   {/* Campo de entrada */}
                   <div className="my-4">
                     <input
-                     type="text"
-                     placeholder="Ingrese cantidad en USD"
-                     value={amountInUsd}
-                     onChange={handleChange}
-                      className="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
+                      type="text"
+                      placeholder="Ingrese cantidad en USD"
+                      value={amountInUsd}
+                      onChange={handleChange}
+                      className="border border-gray-300 p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
                   </div>
-    
+        
                   {/* Mostrar resultados */}
-                  <p>{amountInUsd.toLocaleString()} USD equivale a {amountInCop.toLocaleString()} COP</p>
-                  <p className="font-bold text-[20px]" >Con una tasa de cambio restada en 500 pesos,  {amountInUsd.toLocaleString()} USD equivale a  EL TOTAL:{newAmountInCop.toLocaleString()} COP</p>
-    
-                  <h2 className="mt-6 text-center text-1xl text-gray-900">
+                  <div className="my-4 text-gray-700">
+                    <span className="block text-sm">El dólar está a: <strong>{usdToCopRate}</strong> COP</span>
+                    <p>{amountInUsd.toLocaleString()} USD equivale a <strong>{amountInCop.toLocaleString()}</strong> COP</p>
+                    <p className="font-bold text-lg mt-2 text-gray-800">Con una tasa de cambio restada en 500 pesos:</p>
+                    <p className="font-bold text-2xl text-blue-600 mt-1">
+                      {amountInUsd.toLocaleString()} USD equivale a: ${newAmountInCop.toLocaleString()} COP
+                    </p>
+                  </div>
+        
+                  <h2 className="mt-6 text-center text-xl font-medium text-gray-900">
                     Bienvenido al sistema de facturación electrónica de Cloudbeds.
                   </h2>
                 </div>
               </div>
+        
+              {/* Pie de página */}
+              <footer className="absolute bottom-0 w-full text-center py-4 bg-gray-100 text-gray-600 text-sm">
+                &copy; {new Date().getFullYear()} Cloudbeds. Todos los derechos reservados.
+              </footer>
             </div>
           );
         }
