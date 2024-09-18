@@ -15,7 +15,7 @@ const DetailReservation =() =>{
     const {HotelCloubedsReservationDetail,loadingReservationDetailCloubeds,errorgetReservationDetailcloubeds
     } =useSelector((state) => state.Cloubeds)
      const {jwt} = useContext(AutoProvider)
-
+    
    const fetData =async() =>{
         await getReservationDetailCloubeds({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID,reservationID:id})
     }

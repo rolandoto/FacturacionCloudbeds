@@ -150,11 +150,11 @@ const useCloubesActions =() =>{
     }
 
 
-    const PostPaymentCloubeds =async({ReservationID,subTotal,taxesFees,additionalItems,Date,body,token,id_user}) =>{
+    const PostPaymentCloubeds =async({ReservationID,subTotal,taxesFees,additionalItems,Date,body,token,id_user,propertyID,tokenCloudbes}) =>{
         dispatch(setLoadingPaymentCloubeds())
           
             try {
-                const response = await Httpclient.PostPaymentCloubeds({ReservationID,subTotal,taxesFees,additionalItems,Date,body,token,id_user})
+                const response = await Httpclient.PostPaymentCloubeds({ReservationID,subTotal,taxesFees,additionalItems,Date,body,token,id_user,propertyID,tokenCloudbes})
                 
                 if(response){
                     window.location.reload()

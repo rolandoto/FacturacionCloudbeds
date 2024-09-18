@@ -199,14 +199,14 @@ const GetRegisterCloubes  = async ({id}) => {
   }
 };
 
-const PostPaymentCloubeds = async ({ReservationID,subTotal,taxesFees,additionalItems,Date,body,token,id_user}) => {
+const PostPaymentCloubeds = async ({ReservationID,subTotal,taxesFees,additionalItems,Date,body,token,id_user,propertyID,tokenCloudbes}) => {
   try {
       const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/PostPaymentCloubeds`, {
           method: "POST",
           headers: {
               'Content-type': 'application/json',
           },
-          body:JSON.stringify({ReservationID,subTotal,taxesFees,additionalItems,Date,body,token,id_user})
+          body:JSON.stringify({ReservationID,subTotal,taxesFees,additionalItems,Date,body,token,id_user,propertyID,tokenCloudbes})
       });
       if (!resp.ok) {
           throw new Error('Response is not ok');

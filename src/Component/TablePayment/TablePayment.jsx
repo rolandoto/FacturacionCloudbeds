@@ -307,8 +307,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     };  
 
 
-    console.log(items)
-
     const handleInvoiceSubmission =async() =>{
         if(DiscountSubTotal ==0){
             toast(<div className="text-red-500" >No tiene saldo pendiente</div>)
@@ -318,6 +316,8 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
                                         taxesFees:taxesFeesPayment,
                                         additionalItems:additionalItemsPayment,
                                         Date:now,
+                                        propertyID:jwt?.result?.propertyID,
+                                        tokenCloudbes:jwt?.result?.TokenCloubeds,
                                         body:response,
                                         token:dian.access_token,
                                         id_user:jwt?.result?.id_user})
