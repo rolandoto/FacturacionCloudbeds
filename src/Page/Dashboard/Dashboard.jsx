@@ -8,6 +8,43 @@ const Dashboard = () =>{
 
     const {getDollar} = useListHotel()
 
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+      const handleKeyDown = (event) => {
+        // Prevenir F5
+        if (isLoading && event.key === 'F5') {
+          event.preventDefault();
+          alert('No puedes refrescar la página mientras está cargando.');
+        }
+
+        // Prevenir Ctrl + R o Cmd + R
+        if (isLoading && (event.ctrlKey || event.metaKey) && event.key === 'r') {
+          event.preventDefault();
+          alert('No puedes refrescar la página mientras está cargando.');
+        }
+
+        // Prevenir Ctrl + Shift + R o Cmd + Shift + R
+        if (isLoading && (event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'r') {
+          event.preventDefault();
+          alert('No puedes refrescar la página mientras está cargando.');
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [isLoading]);
+
+    const iniciarCarga = () => {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 5000); // Simula una operación de carga
+    };
+
     const {Dollar,loadingDollar,ErrorDollar
     } =useSelector((state) => state.listHotel)
 
@@ -100,8 +137,12 @@ const Dashboard = () =>{
                 </div>
                 <Toaster richColors  />
                 {fillContent()}
-
-               
+                <div>
+                <button onClick={iniciarCarga} disabled={isLoading}>
+                  {isLoading ? 'Cargando...' : 'Iniciar Carga'}
+                </button>
+                {isLoading && <p>La página está en proceso, no la recargues.</p>}
+              </div>
             </>
 
 }

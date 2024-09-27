@@ -206,7 +206,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
 
     const payments =[{
         id: jwt?.result?.id_payment,
-        value:valuePymentIpoconsumo,
+        value:valuePymentIpoconsumo
       }]
 
     const now = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -306,6 +306,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       additional_fields: {}
     };  
 
+    console.log(response)
 
     const handleInvoiceSubmission =async() =>{
         if(DiscountSubTotal ==0){
@@ -394,7 +395,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
                     </div>
                     <div className="flex mt-2 items-center justify-between">
                     <div className="flex items-center ">
-                        <h2 >AÑADIR CUENTAS TIENDA</h2>
+                        <h2 >AÑADIR CUENTAS TIENDA + EXTRAS</h2>
                         <FaQuestionCircle className="text-gray-400 ml-1" />
                     </div>
                     <div onClick={toggleItem2} className="cursor-pointer">
