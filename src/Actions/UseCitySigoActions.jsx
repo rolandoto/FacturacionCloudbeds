@@ -104,7 +104,7 @@ const UseCitySigoActions =() =>{
                toast.error('ERROR EN EL ENVIÓ EL CORREO')
             }
         } catch (error) {
-            console.log(error)
+         
             dispatch(setErrorForwardEmail("error no found"))
             toast.info('ERROR EN EL ENVIÓ EL CORREO')
         }

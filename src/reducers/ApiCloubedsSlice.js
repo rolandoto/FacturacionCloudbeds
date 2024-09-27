@@ -42,7 +42,11 @@ export const initialState ={
 
     PostRegisterSigo:[],
     loadingRegisterSigo:false,
-    errorRegisterSigo:false
+    errorRegisterSigo:false,
+
+    Taxesfree:[],
+    loadingtaxesFree:false,
+    errorTaxesFree:false
 
 }
 
@@ -179,6 +183,19 @@ export const ApiCloubedsSlice = createSlice({
             state.errorRegisterSigo = true
         },
 
+        setTaxesfreeLoading:(state) =>{
+            state.loadingtaxesFree=true
+            state.errorTaxesFree= null
+        },
+        setTaxesfree:(state,action) =>{
+            state.Taxesfree =action.payload
+            state.loadingtaxesFree= false
+        },
+        setErrorTaxesfree:(state) =>{
+            state.loadingtaxesFree = false
+            state.errorTaxesFree = true
+        },
+
     }   
 })
 
@@ -228,7 +245,14 @@ export const {  setLoadingGetHotelCloubeds,
 
                 setLoadingRegisterSigo,
                 setGetRegisterSigo,
-                setErrorRegisterSigo
+                setErrorRegisterSigo,
+                
+
+                setTaxesfreeLoading,
+                setTaxesfree,
+                setErrorTaxesfree
+
+                
 } = ApiCloubedsSlice.actions
 
 export default  ApiCloubedsSlice.reducer

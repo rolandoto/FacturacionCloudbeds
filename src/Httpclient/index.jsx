@@ -347,6 +347,27 @@ const GetSalesInvoice= async({token,id}) => {
   }
 };
 
+const Gettaxesfree= async({propertyID,token}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/getTaxesfree`, {
+      method: "POST",
+      body: JSON.stringify({propertyID,token}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {data} = await resp.json();
+    return data
+    
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
 
 const PostForwardEmail= async({token,id,Email_to,Copy_to}) => {
 
@@ -358,7 +379,7 @@ const PostForwardEmail= async({token,id,Email_to,Copy_to}) => {
           'Content-type': 'application/json',
       },
     });
-    console.log(resp)
+
     if (!resp.ok) {
       throw new Error('Response is not ok');
     }
@@ -370,6 +391,9 @@ const PostForwardEmail= async({token,id,Email_to,Copy_to}) => {
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
+
+
+
 
 
 const RatesDollar  = async () => {
@@ -412,6 +436,7 @@ const RatesDollar  = async () => {
     GetInvoincesByReservationDian,
     GetSalesInvoice,
     PostForwardEmail,
-    RatesDollar
+    RatesDollar,
+    Gettaxesfree
   }
 

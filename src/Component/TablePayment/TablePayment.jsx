@@ -13,6 +13,7 @@ import UseAroundIpoconsumo from "../../Hooks/UseAroundIpoconsumo"
 import UseRoundRention from "../../Hooks/UseRoundRention"
 import UseRoundRetentionSinIva from "../../Hooks/UseRoundRetentionSinIva"
 import { useDebounce } from 'use-debounce';
+import { Tooltip } from "react-tooltip";
 
 const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,reservationCheckIn,reservationCheckOut}) =>{
 
@@ -28,11 +29,11 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
 
 
 
-    const  {PostPaymentCloubeds,GetPaymentCloubedsActions,getReservation,dispatch} = useCloubesActions()
+    const  {PostPaymentCloubeds,GetPaymentCloubedsActions,getReservation,dispatch,GetTaxesFree} = useCloubesActions()
     const  {getProductDian,GetCLientDian} = UseCitySigoActions()
 
     const {ProductDian,loadingProductDian,ErrorProductDian} =useSelector((state) => state.CitySigoSlice)
-    const {Reservation,loadingReservations,errorgetReservation,} =useSelector((state) => state.Cloubeds)
+    const {Reservation,loadingReservations,errorgetReservation,Taxesfree,errorTaxesFree,loadingtaxesFree} =useSelector((state) => state.Cloubeds)
 
     const [checkedItem1, setCheckedItem1] = useState(false);
     const [checkedItem2, setCheckedItem2] = useState(false);
@@ -254,6 +255,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
 
     const fetData =async() =>{
         await GetPaymentCloubedsActions({id})
+        await GetTaxesFree({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID})
         await  getProductDian({token:dian.access_token})
         await getReservation({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID,reservationID:id})
     }
@@ -261,6 +263,8 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
             fetData()
     },[])
 
+
+    
     
 
     const DateExit = moment().utc().format('YYYY-MM-DD')
@@ -302,10 +306,22 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       payments,
       additional_fields: {}
     };  
+
+    const key = `my-tooltip`;
+
+    const fillContentTaxes =()=>{
+      if(loadingtaxesFree){
+        return <p>Cargando...</p>
+      }
+      if(errorTaxesFree){
+        return <p>error...</p>
+      }
+
+      return Taxesfree.map((itemTaxes) =>  {
+        return itemTaxes.name
+       }) 
+    }
     
-
-    console.log(response)
-
     const handleInvoiceSubmission =async() =>{
         if(DiscountSubTotal ==0){
             toast(<div className="text-red-500" >No tiene saldo pendiente</div>)
@@ -406,8 +422,17 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
                     </div>
                     <div className="flex mt-2 items-center justify-between">
                     <div className="flex items-center ">
-                        <h2 >EXTRAS</h2>
-                        <FaQuestionCircle className="text-gray-400 ml-1" />
+                        <h2 >EXTRAS </h2>
+                        <Tooltip 
+                            id={key} 
+                            place="top"
+                            style={{ backgroundColor: "black", color: "white" }} 
+                            variant="info"  >
+                        
+                    </Tooltip>
+                        <FaQuestionCircle className="text-gray-400 ml-1" data-tooltip-id="my-tooltip"
+                        data-tooltip-content={fillContentTaxes()} data-for={key}/>
+                      
                     </div>
                     <div onClick={toggleItem4} className="cursor-pointer">
                         {checkedItem4 ? (

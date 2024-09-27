@@ -25,7 +25,10 @@ import { setLoadingGetHotelCloubeds,
             setErrorGetPaymentCloubeds,
             setLoadingRegisterSigo,
             setGetRegisterSigo,
-            setErrorRegisterSigo} from "../reducers/ApiCloubedsSlice";
+            setErrorRegisterSigo,
+            setTaxesfreeLoading,
+            setTaxesfree,
+            setErrorTaxesfree} from "../reducers/ApiCloubedsSlice";
 import { toast } from "sonner";
 import Httpclient from "../Httpclient";
 import { useDispatch } from "react-redux";
@@ -222,6 +225,29 @@ const useCloubesActions =() =>{
 
 
 
+    const GetTaxesFree =async({token,propertyID}) =>{
+        dispatch(setTaxesfreeLoading())
+          
+            try {
+                const response = await Httpclient.Gettaxesfree({token,propertyID})
+
+                if(response){
+                            dispatch(setTaxesfree(response)) 
+                           
+                            toast(<div className="text-green-500" >Se registro </div>)
+
+                }else{
+                            dispatch(setErrorTaxesfree("no found"))
+                            toast(<div className="text-red-500" >Error  registro</div>)
+                }
+                } catch (error) {
+                            dispatch(setErrorTaxesfree("no found"))
+                            toast(<div className="text-red-500" >Error  registro</div>)
+            }
+    }
+
+
+
 
     return {getHotelCloubeds,
         getReservationCloubeds,
@@ -232,7 +258,8 @@ const useCloubesActions =() =>{
         PostPaymentCloubeds,
         GetPaymentCloubedsActions,
         PostRegisterSigoCloudbeds,
-        dispatch
+        dispatch,
+        GetTaxesFree
     }
 
 }
