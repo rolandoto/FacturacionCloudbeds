@@ -37,18 +37,19 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const [checkedItem1, setCheckedItem1] = useState(false);
     const [checkedItem2, setCheckedItem2] = useState(false);
     const [checkedItem3, setCheckedItem3] = useState(false);
+    const [checkedItem4, setCheckedItem4] = useState(false);
   
     const toggleItem1 = () => setCheckedItem1(!checkedItem1);
     const toggleItem2 = () => setCheckedItem2(!checkedItem2);
     const toggleItem3 = () => setCheckedItem3(!checkedItem3);
+    const toggleItem4 = () => setCheckedItem4(!checkedItem4);
 
 
     const sumWithInitialMinibar = parseInt(additionalItems)
     const sumWithInitial= parseInt(subTotal)
-    
     const totalAmount = sumWithInitial +sumWithInitialMinibar
 
-    const totalPrice=  parseInt(subTotal)
+    const totalPrice=  checkedItem4?  parseInt(taxesFees) +  parseInt(subTotal) :  parseInt(subTotal)
     const typeIva=checkedItem3
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
@@ -74,7 +75,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
             return  item
         }}
     );
-
 
 
 
@@ -201,9 +201,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
 
     const valuePymentIpoconsumo = checkedItem2 ? ItemIpoconsumoTotal : valuesPayments
 
-    console.log(valuePymentIpoconsumo)
-
-
     const payments =[{
         id: jwt?.result?.id_payment,
         value:valuePymentIpoconsumo
@@ -305,6 +302,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       payments,
       additional_fields: {}
     };  
+    
 
     console.log(response)
 
@@ -395,11 +393,24 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
                     </div>
                     <div className="flex mt-2 items-center justify-between">
                     <div className="flex items-center ">
-                        <h2 >AÑADIR CUENTAS TIENDA + EXTRAS</h2>
+                        <h2 >AÑADIR CUENTAS TIENDA</h2>
                         <FaQuestionCircle className="text-gray-400 ml-1" />
                     </div>
                     <div onClick={toggleItem2} className="cursor-pointer">
                         {checkedItem2 ? (
+                        <FaCheck className="text-blue-500 text-xl" />
+                        ) : (
+                        <FaRegSquare className="text-gray-500 text-xl" />
+                        )}
+                    </div>
+                    </div>
+                    <div className="flex mt-2 items-center justify-between">
+                    <div className="flex items-center ">
+                        <h2 >EXTRAS</h2>
+                        <FaQuestionCircle className="text-gray-400 ml-1" />
+                    </div>
+                    <div onClick={toggleItem4} className="cursor-pointer">
+                        {checkedItem4 ? (
                         <FaCheck className="text-blue-500 text-xl" />
                         ) : (
                         <FaRegSquare className="text-gray-500 text-xl" />
