@@ -50,14 +50,38 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const sumWithInitial= parseInt(subTotal)
     const totalAmount = sumWithInitial +sumWithInitialMinibar
 
-    const totalPrice=  checkedItem4?  parseInt(taxesFees) +  parseInt(subTotal) :  parseInt(subTotal)
+
+
+    
+    const additionalItemsPayment=  checkedItem2 ? parseInt(additionalItems) :0
+    const subTotalPayment = parseInt(subTotal)
+    const taxesFeesPayment=  checkedItem4 ?  parseInt(taxesFees) : 0
+
+    const totalAdditionalItems =GetPaymentCloubeds.reduce((sum, rate) => {
+       return  sum + rate.AdditionalItems
+    }, 0);
+
+    const totalSubTotal =GetPaymentCloubeds.reduce((sum, rate) => {
+        return  sum + rate.SubTotal
+     }, 0);
+
+     const totalTaxesFees =GetPaymentCloubeds.reduce((sum, rate) => {
+        return  sum + rate.TaxesFees
+     }, 0);
+
+    const DiscountAdditionalItems = Math.max( additionalItemsPayment- totalAdditionalItems, 0);
+    const DiscountSubTotal = Math.max( subTotalPayment- totalSubTotal, 0);
+    const DiscountTaxesFees = Math.max( taxesFeesPayment -totalTaxesFees, 0);
+
+
+    const totalPrice=  checkedItem4?  parseInt(DiscountTaxesFees) +  parseInt(DiscountSubTotal) :  parseInt(DiscountSubTotal)
     const typeIva=checkedItem3
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
     const valuesPayments = typeIva ? totalPrice :totalPrice
 
-    const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:sumWithInitialMinibar})
+    const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:DiscountAdditionalItems})
     const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
     const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
 
@@ -97,7 +121,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
             code: `${item.code}`,
             description: `${item.name}`,
             quantity: 1,
-            price: sumWithInitialMinibar,
+            price: DiscountAdditionalItems,
             discount: 0.00,
           }))
         }}
@@ -183,8 +207,8 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     
     const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo)
 
+  
     
-   
     const validProduct =  typeIva ? itemIva   :itemsExenta
     const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo)
     const ItemIpoconsumoTotal = totalAmount
@@ -208,27 +232,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       }]
 
     const now = moment().format('YYYY-MM-DD HH:mm:ss');
-
-    const additionalItemsPayment= parseInt(additionalItems)
-    const subTotalPayment =    parseInt(subTotal)
-    const  taxesFeesPayment= parseInt(taxesFees)
-
-    const totalAdditionalItems =GetPaymentCloubeds.reduce((sum, rate) => {
-       return  sum + rate.AdditionalItems
-    }, 0);
-
-    const totalSubTotal =GetPaymentCloubeds.reduce((sum, rate) => {
-        return  sum + rate.SubTotal
-     }, 0);
-
-     const totalTaxesFees =GetPaymentCloubeds.reduce((sum, rate) => {
-        return  sum + rate.TaxesFees
-     }, 0);
-
-    const DiscountAdditionalItems = Math.max( additionalItemsPayment- totalAdditionalItems, 0);
-    const DiscountSubTotal = Math.max( subTotalPayment- totalSubTotal, 0);
-    const DiscountTaxesFees = Math.max( taxesFeesPayment -totalTaxesFees, 0);
-
 
     const [searchTerm, setSearchTerm] = useState(null); // Inicializar con null
 
@@ -264,9 +267,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     },[])
 
 
-    
-    
-
     const DateExit = moment().utc().format('YYYY-MM-DD')
 
     const select = ListClient?.data?.results?.find((item) => item.identification == searchTerm)
@@ -301,12 +301,14 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       mail: {
         send: true
       },
-      observations:`hospedaje del ${reservationCheckIn} al ${reservationCheckOut}`,
+      observations:`hospedaje del ${reservationCheckIn} al ${reservationCheckOut} ${jwt?.result?.observation} `,
       items,
       payments,
       additional_fields: {}
     };  
 
+
+    
     const key = `my-tooltip`;
 
     const fillContentTaxes =()=>{
@@ -321,13 +323,15 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
         return itemTaxes.name
        }) 
     }
+
+    console.log(DiscountSubTotal)
     
     const handleInvoiceSubmission =async() =>{
         if(DiscountSubTotal ==0){
             toast(<div className="text-red-500" >No tiene saldo pendiente</div>)
         }else{
             await  PostPaymentCloubeds({ReservationID:id,
-                                        subTotal:subTotalPayment,
+                                        subTotal:DiscountSubTotal,
                                         taxesFees:taxesFeesPayment,
                                         additionalItems:additionalItemsPayment,
                                         Date:now,
