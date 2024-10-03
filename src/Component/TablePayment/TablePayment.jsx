@@ -28,6 +28,8 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const {dian,jwt} = useContext(AutoProvider)
 
 
+    console.log(taxesFees)
+
 
     const  {PostPaymentCloubeds,GetPaymentCloubedsActions,getReservation,dispatch,GetTaxesFree} = useCloubesActions()
     const  {getProductDian,GetCLientDian} = UseCitySigoActions()
@@ -69,9 +71,10 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
         return  sum + rate.TaxesFees
      }, 0);
 
-    const DiscountAdditionalItems = Math.max( additionalItemsPayment- totalAdditionalItems, 0);
+
+    const DiscountAdditionalItems = Math.max(  parseInt(additionalItems)- totalAdditionalItems, 0);
     const DiscountSubTotal = Math.max( subTotalPayment- totalSubTotal, 0);
-    const DiscountTaxesFees = Math.max( taxesFeesPayment -totalTaxesFees, 0);
+    const DiscountTaxesFees = Math.max( parseInt(taxesFees)  -totalTaxesFees, 0);
 
 
     const totalPrice=  checkedItem4?  parseInt(DiscountTaxesFees) +  parseInt(DiscountSubTotal) :  parseInt(DiscountSubTotal)
