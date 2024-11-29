@@ -86,8 +86,8 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
 
     const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:DiscountAdditionalItems})
     const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
-    const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
-
+    const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:435600})
+    console.log(SubtotalDianSinIva)
     const filteredItems = ProductDian?.filter(item =>{
         return  item.id ==jwt?.result?.dian
       });
@@ -310,7 +310,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       additional_fields: {}
     };  
 
-
+    console.log(response)
     
     const key = `my-tooltip`;
 
@@ -327,7 +327,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
        }) 
     }
 
-    console.log(DiscountSubTotal)
+   
     
     const handleInvoiceSubmission =async() =>{
         if(DiscountSubTotal ==0){
