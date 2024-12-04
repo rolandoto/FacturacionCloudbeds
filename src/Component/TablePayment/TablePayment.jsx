@@ -28,9 +28,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const {dian,jwt} = useContext(AutoProvider)
 
 
-    console.log(taxesFees)
-
-
     const  {PostPaymentCloubeds,GetPaymentCloubedsActions,getReservation,dispatch,GetTaxesFree} = useCloubesActions()
     const  {getProductDian,GetCLientDian} = UseCitySigoActions()
 
@@ -52,8 +49,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const sumWithInitial= parseInt(subTotal)
     const totalAmount = sumWithInitial +sumWithInitialMinibar
 
-
-
     
     const additionalItemsPayment=  checkedItem2 ? parseInt(additionalItems) :0
     const subTotalPayment = parseInt(subTotal)
@@ -71,7 +66,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
         return  sum + rate.TaxesFees
      }, 0);
 
-
     const DiscountAdditionalItems = Math.max(  parseInt(additionalItems)- totalAdditionalItems, 0);
     const DiscountSubTotal = Math.max( subTotalPayment- totalSubTotal, 0);
     const DiscountTaxesFees = Math.max( parseInt(taxesFees)  -totalTaxesFees, 0);
@@ -86,8 +80,9 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
 
     const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:DiscountAdditionalItems})
     const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
-    const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:435600})
-    console.log(SubtotalDianSinIva)
+    const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
+     
+
     const filteredItems = ProductDian?.filter(item =>{
         return  item.id ==jwt?.result?.dian
       });
