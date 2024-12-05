@@ -70,6 +70,8 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const DiscountSubTotal = Math.max( subTotalPayment- totalSubTotal, 0);
     const DiscountTaxesFees = Math.max( parseInt(taxesFees)  -totalTaxesFees, 0);
 
+    const totalAmmount  = DiscountAdditionalItems +  DiscountSubTotal +DiscountTaxesFees
+
 
     const totalPrice=  checkedItem4?  parseInt(DiscountTaxesFees) +  parseInt(DiscountSubTotal) :  parseInt(DiscountSubTotal)
     const typeIva=checkedItem3
@@ -86,10 +88,10 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const filteredItems = ProductDian?.filter(item =>{
         return  item.id ==jwt?.result?.dian
       });
-  
-      const filterItemsExecento = ProductDian?.filter(item =>{
-        return  item.code =="6"
-      }); 
+
+    const filterItemsExecento = ProductDian?.filter(item =>{
+      return  item.code =="6"
+    }); 
       
     const resdian = jwt?.result?.RestDian;
 
@@ -205,15 +207,12 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     
     const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo)
 
-  
-    
     const validProduct =  typeIva ? itemIva   :itemsExenta
     const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo)
     const ItemIpoconsumoTotal = totalAmount
 
     const ValidaIvaRetention = checkedItem1 &&  checkedItem2 && typeIva ?   ProductRententionExtra : ItemIpoconsumo
       
-       
     const Retention = checkedItem1 ?   TotalRetentionDian : 0
     const RetentionSinIva = checkedItem1 ?   SubtotalDianSinIva : 0
 
@@ -224,10 +223,17 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
 
     const valuePymentIpoconsumo = checkedItem2 ? ItemIpoconsumoTotal : valuesPayments
 
+    const resultado = (checkedItem3 && checkedItem2 && checkedItem4)
+    ? totalAmmount
+    : valuePymentIpoconsumo;
+
+ 
     const payments =[{
         id: jwt?.result?.id_payment,
-        value:valuePymentIpoconsumo
+        value:resultado
       }]
+
+    
 
     const now = moment().format('YYYY-MM-DD HH:mm:ss');
 
@@ -263,7 +269,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     useEffect(() =>{
             fetData()
     },[])
-
 
     const DateExit = moment().utc().format('YYYY-MM-DD')
 
@@ -305,8 +310,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       additional_fields: {}
     };  
 
-    console.log(response)
-    
     const key = `my-tooltip`;
 
     const fillContentTaxes =()=>{
