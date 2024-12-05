@@ -270,6 +270,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
             fetData()
     },[])
 
+    
     const DateExit = moment().utc().format('YYYY-MM-DD')
 
     const select = ListClient?.data?.results?.find((item) => item.identification == searchTerm)
