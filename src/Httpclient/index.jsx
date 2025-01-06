@@ -37,14 +37,15 @@ const GetListHotel = async () => {
     })
 }
 
-const PostAutenticationDian = async() => {
+const PostAutenticationDian = async({Dian}) => {
   
   try {
     const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/PostAuthSigo`, {
       method: "POST",
       headers: {
           'Content-type': 'application/json',
-      }
+      },
+      body: JSON.stringify({Dian})
     });
     if (!resp.ok) {
         throw new Error('Response is not ok');

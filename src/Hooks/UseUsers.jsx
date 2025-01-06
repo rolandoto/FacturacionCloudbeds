@@ -9,9 +9,8 @@ const UseUsers =() =>{
     
     const login = useCallback(({username,password,hotel}) =>{
         setState({loading:true,error:false})
-        Httpclient.PostAutenticationDian().then(e =>{
+        Httpclient.PostAutenticationDian({Dian:1}).then(e =>{
             setDian(e)
-         
             localStorage.setItem('tokenDian',JSON.stringify(e))
         }).catch((e) =>{
          
