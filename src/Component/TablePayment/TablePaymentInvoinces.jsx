@@ -93,7 +93,7 @@ const TablePaymentInvoinces =() =>{
                                             })
                                         }
                     
-                    return    <tr  className="border-b">
+                    return    <tr key={itemByIdReservation.ID_facturacion}  className="border-b">
                                 <td className="py-2 px-4">{Fecha}</td>
                                 <td className="py-2 px-4">{itemByIdReservation.name} {itemByIdReservation.lastname}</td>
                                 <td className="py-2 px-4"><Button isLoading={LoadingPdf} onClick={GnerarPdf} color="success"  className=" rounded-none text-white" >Descargar factura electrónica</Button></td>
@@ -119,9 +119,9 @@ const TablePaymentInvoinces =() =>{
                                                         
                                                     </tr>
                                         })}
-            </tbody>
-            </table>
-          
+                                </tbody>
+                                </table>
+                            
 </div>
 
     }

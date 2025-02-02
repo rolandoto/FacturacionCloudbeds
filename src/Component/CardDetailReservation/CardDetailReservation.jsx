@@ -39,7 +39,9 @@ const CardDetailReservation =({reservationID,guestName,balanceDetailed,rooms,res
                         <TableRoomassignation                            
                             rooms={rooms}  />
 
-                        <TablePayment subTotal={balanceDetailed.subTotal} 
+                        <TablePayment 
+                            rooms={rooms} 
+                            subTotal={balanceDetailed.subTotal} 
                             reservationCheckIn={reservationCheckIn}
                             reservationCheckOut={reservationCheckOut}
                             additionalItems={balanceDetailed.additionalItems}

@@ -20,6 +20,7 @@ const Header =()  =>{
     const {HotelCloubedsReservation,loadingReservationCloubeds,errorgetReservationcloubeds,loadingGetHotelCloubeds,errorgetHotelCloubeds,HotelCloubeds
     } =useSelector((state) => state.Cloubeds)
 
+    
  
     const navigate = useNavigate();
     const handExit =() =>{
@@ -62,6 +63,7 @@ const Header =()  =>{
     }, [debouncedSearchTerm]); // Dependencia para el useCallback
     
 
+  
     const handleChange = useCallback((event) => {
         const { value } = event.target;
         setSearchTerm(value);
@@ -80,9 +82,9 @@ const Header =()  =>{
         }
         setShowContextMenu(false)
         navigate(`/reservation/${reservationID}`);
-    };
-    
+    };  
 
+   
     const fillContent =()=>{
         if(loadingGetHotelCloubeds){
           return <p>Cargando</p>
@@ -120,7 +122,7 @@ const Header =()  =>{
                         {loadingReservationCloubeds  ? <Spinner  /> : <>
                             {HotelCloubedsReservation.map((item) => {
                                 return (
-                                    <div  onClick={() => handleNextReservation(item.reservationID)} className="styled-menu-item flex justify-between  items-center space-x-2 p-2">
+                                    <div  key={item.propertyID} onClick={() => handleNextReservation(item.reservationID)} className="styled-menu-item flex justify-between  items-center space-x-2 p-2">
                                     <span className="flex-shrink-0 w-1/3 truncate">{item.guestName}</span>
                                     <div className="flex items-center space-x-2 w-2/3 justify-end">
                                         <span className="truncate">{item.startDate} a {item.endDate}</span>

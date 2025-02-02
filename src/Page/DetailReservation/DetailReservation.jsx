@@ -10,7 +10,7 @@ import { Toaster } from "sonner"
 
 const DetailReservation =() =>{
   
-   const {id} =useParams()
+    const {id} =useParams()
     const {getReservationDetailCloubeds,dispatch} = useCloubesActions()
     const {HotelCloubedsReservationDetail,loadingReservationDetailCloubeds,errorgetReservationDetailcloubeds
     } =useSelector((state) => state.Cloubeds)
@@ -19,6 +19,8 @@ const DetailReservation =() =>{
    const fetData =async() =>{
         await getReservationDetailCloubeds({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID,reservationID:id})
     }
+
+    
 
     useEffect(() =>{
         fetData()

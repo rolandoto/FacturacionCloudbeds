@@ -1,9 +1,9 @@
 import  React from "react"
 import { PiUsersThin } from "react-icons/pi";
 
-
 const TableRoomassignation =({rooms}) =>{
 
+    
     return <>
                 <div >
                             <div className="overflow-x-auto">

@@ -15,7 +15,7 @@ import UseRoundRetentionSinIva from "../../Hooks/UseRoundRetentionSinIva"
 import { useDebounce } from 'use-debounce';
 import { Tooltip } from "react-tooltip";
 
-const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,reservationCheckIn,reservationCheckOut}) =>{
+const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Payment,reservationCheckIn,reservationCheckOut}) =>{
 
     const {id} = useParams()
     const {loadingPostPaymentCloubeds,
@@ -27,6 +27,23 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const { ListClient,loadingClient,ErrorClient} =useSelector((state) => state.CitySigoSlice)
     const {dian,jwt} = useContext(AutoProvider)
 
+
+    let totalNights = 0 
+    let totalAdults = 0;
+    
+    rooms.forEach(reservation => {
+        const checkIn = new Date(reservation.roomCheckIn);
+        const checkOut = new Date(reservation.roomCheckOut);
+        
+        // Calcula la diferencia en días entre check-in y check-out
+        const nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+        totalNights += nights;
+    
+        // Suma los adultos
+        totalAdults += parseInt(reservation.adults, 10);
+    });
+
+  
 
     const  {PostPaymentCloubeds,GetPaymentCloubedsActions,getReservation,dispatch,GetTaxesFree} = useCloubesActions()
     const  {getProductDian,GetCLientDian} = UseCitySigoActions()
@@ -45,13 +62,17 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const toggleItem4 = () => setCheckedItem4(!checkedItem4);
 
 
+    //seguro hotelero
+
+    const dataNigths = totalNights *1100 
+    const dataAdults=  totalAdults *dataNigths
+
     const sumWithInitialMinibar = parseInt(additionalItems)
-    const sumWithInitial= parseInt(subTotal)
+    const sumWithInitial= parseInt(subTotal-dataAdults)
     const totalAmount = sumWithInitial +sumWithInitialMinibar
 
-    
     const additionalItemsPayment=  checkedItem2 ? parseInt(additionalItems) :0
-    const subTotalPayment = parseInt(subTotal)
+    const subTotalPayment = parseInt(subTotal-dataAdults)
     const taxesFeesPayment=  checkedItem4 ?  parseInt(taxesFees) : 0
 
     const totalAdditionalItems =GetPaymentCloubeds.reduce((sum, rate) => {
@@ -66,12 +87,12 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
         return  sum + rate.TaxesFees
      }, 0);
 
+
     const DiscountAdditionalItems = Math.max(  parseInt(additionalItems)- totalAdditionalItems, 0);
     const DiscountSubTotal = Math.max( subTotalPayment- totalSubTotal, 0);
     const DiscountTaxesFees = Math.max( parseInt(taxesFees)  -totalTaxesFees, 0);
 
     const totalAmmount  = DiscountAdditionalItems +  DiscountSubTotal +DiscountTaxesFees
-
 
     const totalPrice=  checkedItem4?  parseInt(DiscountTaxesFees) +  parseInt(DiscountSubTotal) :  parseInt(DiscountSubTotal)
     const typeIva=checkedItem3
@@ -92,17 +113,36 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     const filterItemsExecento = ProductDian?.filter(item =>{
       return  item.code =="6"
     }); 
+
+
+    console.log(SubtotalDian)
       
     const resdian = jwt?.result?.RestDian;
 
     const combinedArray = ProductDian.filter(item => {
-        if(resdian?.some(otherItem =>otherItem.Code == item.code)){
-            return  item
-        }}
-    );
+      return resdian?.some(otherItem => otherItem.Code == item.code) && item.code == 12;
+});
 
+    const combinedArrayTo = ProductDian.filter(item => {
+      return resdian?.some(otherItem => otherItem.Code == item.code) && item.code != 12;
+  });
 
+    const itemSeguro = useMemo(() => {
+      if(combinedArrayTo.some((item) =>item.taxes)){
+        return  combinedArrayTo?.map(item => ({
+          code: `${item.code}`,
+          description: `${item.name}`,
+          quantity: totalAdults,
+          price: dataNigths,
+          discount: 0.00,
+          taxes: [{
+            id: item?.taxes[0]?.id || 0
+          }]
+        }))
+      }
+    }, [filterItemsExecento, totalPrice]);
 
+  
     //Consumo
     const itemIvaIpoconsumo = useMemo(() => {
         if(combinedArray.some((item) =>item.taxes)){
@@ -205,35 +245,35 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       }, [filterItemsExecento, totalPrice]);
 
     
-    const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo)
-
+    
+    const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo).concat(itemSeguro)
     const validProduct =  typeIva ? itemIva   :itemsExenta
-    const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo)
+    const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo).concat(itemSeguro)
     const ItemIpoconsumoTotal = totalAmount
-
     const ValidaIvaRetention = checkedItem1 &&  checkedItem2 && typeIva ?   ProductRententionExtra : ItemIpoconsumo
-      
     const Retention = checkedItem1 ?   TotalRetentionDian : 0
     const RetentionSinIva = checkedItem1 ?   SubtotalDianSinIva : 0
 
     const  itemsIva =  checkedItem1 ?  itemRetention :  itemIva
-    const itemsinipoconsumo =  typeIva ? itemsIva   :itemsExenta
+    const itemsinipoconsumo =  typeIva ? itemsIva.concat(itemSeguro)   :itemsExenta.concat(itemSeguro) 
     const items  = checkedItem2 ? ValidaIvaRetention : itemsinipoconsumo
     const RetentionItem = filteredItems.some((item) =>item.taxes) ?  Retention :  RetentionSinIva 
+
+    console.log(ItemIpoconsumo)
 
     const valuePymentIpoconsumo = checkedItem2 ? ItemIpoconsumoTotal : valuesPayments
 
     const resultado = (checkedItem3 && checkedItem2 && checkedItem4)
-    ? totalAmmount
-    : valuePymentIpoconsumo;
-
+    ? totalAmmount+dataAdults
+    : valuePymentIpoconsumo+dataAdults
+      
+      
+  
  
     const payments =[{
         id: jwt?.result?.id_payment,
         value:resultado
       }]
-
-    
 
     const now = moment().format('YYYY-MM-DD HH:mm:ss');
 
@@ -269,7 +309,6 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
     useEffect(() =>{
             fetData()
     },[])
-
     
     const DateExit = moment().utc().format('YYYY-MM-DD')
 
@@ -311,6 +350,7 @@ const TablePayment =({subTotal,additionalItems,taxesFees,grandTotal,Payment,rese
       additional_fields: {}
     };  
 
+    console.log(response)
     const key = `my-tooltip`;
 
     const fillContentTaxes =()=>{
