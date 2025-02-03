@@ -30,20 +30,23 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
 
     let totalNights = 0 
     let totalAdults = 0;
-    
+    let pricePeople =0
+    let count=0
     rooms.forEach(reservation => {
         const checkIn = new Date(reservation.roomCheckIn);
         const checkOut = new Date(reservation.roomCheckOut);
-        
+
         // Calcula la diferencia en días entre check-in y check-out
         const nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+        pricePeople += nights * parseInt(reservation.adults) *1100
+        count += nights * parseInt(reservation.adults)
         totalNights += nights;
-    
         // Suma los adultos
         totalAdults += parseInt(reservation.adults, 10);
     });
 
-  
+    const dataNigths = 1100 
+    const dataAdults= pricePeople
 
     const  {PostPaymentCloubeds,GetPaymentCloubedsActions,getReservation,dispatch,GetTaxesFree} = useCloubesActions()
     const  {getProductDian,GetCLientDian} = UseCitySigoActions()
@@ -64,8 +67,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
 
     //seguro hotelero
 
-    const dataNigths = totalNights *1100 
-    const dataAdults=  totalAdults *dataNigths
 
     const sumWithInitialMinibar = parseInt(additionalItems)
     const sumWithInitial= parseInt(subTotal-dataAdults)
@@ -115,7 +116,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     }); 
 
 
-    console.log(SubtotalDian)
       
     const resdian = jwt?.result?.RestDian;
 
@@ -132,7 +132,7 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
         return  combinedArrayTo?.map(item => ({
           code: `${item.code}`,
           description: `${item.name}`,
-          quantity: totalAdults,
+          quantity: count,
           price: dataNigths,
           discount: 0.00,
           taxes: [{
@@ -142,6 +142,7 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
       }
     }, [filterItemsExecento, totalPrice]);
 
+    console.log(itemSeguro)
   
     //Consumo
     const itemIvaIpoconsumo = useMemo(() => {
@@ -258,8 +259,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const itemsinipoconsumo =  typeIva ? itemsIva.concat(itemSeguro)   :itemsExenta.concat(itemSeguro) 
     const items  = checkedItem2 ? ValidaIvaRetention : itemsinipoconsumo
     const RetentionItem = filteredItems.some((item) =>item.taxes) ?  Retention :  RetentionSinIva 
-
-    console.log(ItemIpoconsumo)
 
     const valuePymentIpoconsumo = checkedItem2 ? ItemIpoconsumoTotal : valuesPayments
 
