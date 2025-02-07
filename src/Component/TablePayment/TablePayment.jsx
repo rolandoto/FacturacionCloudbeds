@@ -27,7 +27,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const { ListClient,loadingClient,ErrorClient} =useSelector((state) => state.CitySigoSlice)
     const {dian,jwt} = useContext(AutoProvider)
 
-
     let totalNights = 0 
     let totalAdults = 0;
     let pricePeople =0
@@ -64,9 +63,7 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const toggleItem3 = () => setCheckedItem3(!checkedItem3);
     const toggleItem4 = () => setCheckedItem4(!checkedItem4);
 
-
     //seguro hotelero
-
 
     const sumWithInitialMinibar = parseInt(additionalItems)
     const sumWithInitial= parseInt(subTotal-dataAdults)
@@ -75,6 +72,8 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const additionalItemsPayment=  checkedItem2 ? parseInt(additionalItems) :0
     const subTotalPayment = parseInt(subTotal-dataAdults)
     const taxesFeesPayment=  checkedItem4 ?  parseInt(taxesFees) : 0
+
+
 
     const totalAdditionalItems =GetPaymentCloubeds.reduce((sum, rate) => {
        return  sum + rate.AdditionalItems
@@ -87,7 +86,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
      const totalTaxesFees =GetPaymentCloubeds.reduce((sum, rate) => {
         return  sum + rate.TaxesFees
      }, 0);
-
 
     const DiscountAdditionalItems = Math.max(  parseInt(additionalItems)- totalAdditionalItems, 0);
     const DiscountSubTotal = Math.max( subTotalPayment- totalSubTotal, 0);
@@ -105,7 +103,8 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:DiscountAdditionalItems})
     const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
     const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
-     
+
+
 
     const filteredItems = ProductDian?.filter(item =>{
         return  item.id ==jwt?.result?.dian
@@ -114,8 +113,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const filterItemsExecento = ProductDian?.filter(item =>{
       return  item.code =="6"
     }); 
-
-
       
     const resdian = jwt?.result?.RestDian;
 
@@ -124,7 +121,7 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
 });
 
     const combinedArrayTo = ProductDian.filter(item => {
-      return resdian?.some(otherItem => otherItem.Code == item.code) && item.code != 12;
+      return resdian?.some(otherItem => otherItem.Code == item.code) && item.code != 12 && item.code != 19 ;
   });
 
     const itemSeguro = useMemo(() => {
@@ -142,8 +139,8 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
       }
     }, [filterItemsExecento, totalPrice]);
 
-    console.log(itemSeguro)
-  
+    console.log({itemSeguro})
+
     //Consumo
     const itemIvaIpoconsumo = useMemo(() => {
         if(combinedArray.some((item) =>item.taxes)){
@@ -260,14 +257,16 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const items  = checkedItem2 ? ValidaIvaRetention : itemsinipoconsumo
     const RetentionItem = filteredItems.some((item) =>item.taxes) ?  Retention :  RetentionSinIva 
 
+
+    console.log(itemSeguro )
+
+
     const valuePymentIpoconsumo = checkedItem2 ? ItemIpoconsumoTotal : valuesPayments
 
     const resultado = (checkedItem3 && checkedItem2 && checkedItem4)
     ? totalAmmount+dataAdults
     : valuePymentIpoconsumo+dataAdults
       
-      
-  
  
     const payments =[{
         id: jwt?.result?.id_payment,
@@ -284,7 +283,7 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     setSearchTerm(customFieldValue);
     }, [Reservation]);
 
-    // Ejecutar la llamada a la API cuando searchTerm cambie
+
     useEffect(() => {
     const fetchSearchResults = async () => {
         try {
@@ -349,7 +348,8 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
       additional_fields: {}
     };  
 
-    console.log(response)
+  
+
     const key = `my-tooltip`;
 
     const fillContentTaxes =()=>{
