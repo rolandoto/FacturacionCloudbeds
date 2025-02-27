@@ -15,6 +15,7 @@ import UseRoundRetentionSinIva from "../../Hooks/UseRoundRetentionSinIva"
 import { useDebounce } from 'use-debounce';
 import { Tooltip } from "react-tooltip";
 
+
 const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Payment,reservationCheckIn,reservationCheckOut}) =>{
 
     const {id} = useParams()
@@ -66,13 +67,12 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     //seguro hotelero
 
     const sumWithInitialMinibar = parseInt(additionalItems)
-    const sumWithInitial= parseInt(subTotal-dataAdults)
+    const sumWithInitial= parseInt(99000-dataAdults)
     const totalAmount = sumWithInitial +sumWithInitialMinibar
 
     const additionalItemsPayment=  checkedItem2 ? parseInt(additionalItems) :0
-    const subTotalPayment = parseInt(subTotal-dataAdults)
+    const subTotalPayment = parseInt(99000-dataAdults)
     const taxesFeesPayment=  checkedItem4 ?  parseInt(taxesFees) : 0
-
 
 
     const totalAdditionalItems =GetPaymentCloubeds.reduce((sum, rate) => {
@@ -98,13 +98,14 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const totalRound =  totalPrice / 1.19
     const ValorBase = Math.round(totalRound * 100000) / 100000; // Redondear a 5 decimales
     const valueSTotalProduct =  typeIva ?  ValorBase : totalPrice
+
     const valuesPayments = typeIva ? totalPrice :totalPrice
 
-    const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:DiscountAdditionalItems})
+    const {SubtotalDianIpoconsumo,TotalPayipoconsumo} =UseAroundIpoconsumo({Price:210100})
     const {SubtotalDian,TotalRetentionDian} =UseRoundRention({Price:sumWithInitial})
     const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:sumWithInitial})
 
-
+    console.log({SubtotalDianIpoconsumo})
 
     const filteredItems = ProductDian?.filter(item =>{
         return  item.id ==jwt?.result?.dian
@@ -118,11 +119,12 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
 
     const combinedArray = ProductDian.filter(item => {
       return resdian?.some(otherItem => otherItem.Code == item.code) && item.code == 12;
-});
+  });
 
     const combinedArrayTo = ProductDian.filter(item => {
       return resdian?.some(otherItem => otherItem.Code == item.code) && item.code != 12 && item.code != 19 ;
   });
+
 
     const itemSeguro = useMemo(() => {
       if(combinedArrayTo.some((item) =>item.taxes)){
@@ -139,8 +141,8 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
       }
     }, [filterItemsExecento, totalPrice]);
 
-    console.log({itemSeguro})
 
+ 
     //Consumo
     const itemIvaIpoconsumo = useMemo(() => {
         if(combinedArray.some((item) =>item.taxes)){
@@ -166,34 +168,29 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
   , [filteredItems, valueSTotalProduct]);
 
 
+  const calcularSubtotal = (total, tasaIVA = 0.19, tasaRetefuente = 0.035) => {
+    return Number((total / (1 + tasaIVA - tasaRetefuente)).toFixed(5));
+  };
+  
   const itemRetention = useMemo(() => {
-    if(filteredItems.some((item) =>item.taxes)){
-      return   filteredItems?.map(item => ({
+    return filteredItems.map(item => {
+      const subtotal = calcularSubtotal(210100); // ✅ Ahora calculará bien
+  
+      return {
         code: `${item.code}`,
         description: `${item.name}`,
         quantity: 1,
-        price:SubtotalDian,
+        price: subtotal, // ✅ Ahora será 181904.76490
         discount: 0.00,
-        taxes: [{
-          id: item?.taxes[0]?.id || 0
-        }, {
-          id: 11451
-        }]
-      }))
-    }else{
-      return   filteredItems?.map(item => ({
-        code: `${item.code}`,
-        description: `${item.name}`,
-        quantity: 1,
-        price: SubtotalDianSinIva,
-        discount: 0.00,
-        taxes: [{
-          id: 11451
-        }]
-      }))
-    }
-  } , [filteredItems, SubtotalDian])
+        taxes: item.taxes?.length
+          ? [{ id: item?.taxes[0]?.id || 0 }, { id: 11451 }] // IVA y Retefuente
+          : [{ id: 11451 }] // Solo Retefuente
+      };
+    });
+  }, [filteredItems]);
 
+  console.log(itemRetention)
+  
     //consumo iva
     const itemIva = useMemo(() => {
         if(filteredItems.some((item) =>item.taxes)){
@@ -258,8 +255,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const RetentionItem = filteredItems.some((item) =>item.taxes) ?  Retention :  RetentionSinIva 
 
 
-    console.log(itemSeguro )
-
 
     const valuePymentIpoconsumo = checkedItem2 ? ItemIpoconsumoTotal : valuesPayments
 
@@ -312,8 +307,8 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
 
     const select = ListClient?.data?.results?.find((item) => item.identification == searchTerm)
 
-    const response= {
-      document: {
+    /**
+     * document: {
         id: jwt?.result?.id_document
       },
       date: DateExit,
@@ -346,9 +341,14 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
       items,
       payments,
       additional_fields: {}
+     * 
+     */
+
+    const response= {
+      
     };  
 
-  
+    console.log(response)
 
     const key = `my-tooltip`;
 
