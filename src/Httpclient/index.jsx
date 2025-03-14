@@ -99,6 +99,28 @@ const PostGetReservationBypropertyID = async ({propertyID,token,search}) => {
 };
 
 
+
+const GetReservationBypropertyRangeDate = async ({propertyID,token,start,end,search}) => {
+  try {
+      const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/GetReservationBypropertyRangeDate`, {
+          method: "POST",
+          headers: {
+              'Content-type': 'application/json',
+          },
+          body:JSON.stringify({propertyID,token,start,end,search})
+      });
+      if (!resp.ok) {
+          throw new Error('Response is not ok');
+        }
+        const {data} = await resp.json();
+        return data
+  } catch (error) {
+      console.error('Error in PostInformeInfomeMetricas:', error);
+      throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
+
 const GetReservationDetailBypropertyID = async ({propertyID,token,reservationID}) => {
   try {
       const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/GetReservationDetailBypropertyID`, {
@@ -424,6 +446,7 @@ const RatesDollar  = async () => {
     PostAutenticationDian,
     PostGetHotelCloudbeds,
     PostGetReservationBypropertyID,
+    GetReservationBypropertyRangeDate,
     GetReservationDetailBypropertyID,
     GetReservation,
     GetCitySigo,

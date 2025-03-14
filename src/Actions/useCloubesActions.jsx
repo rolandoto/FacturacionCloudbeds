@@ -28,7 +28,10 @@ import { setLoadingGetHotelCloubeds,
             setErrorRegisterSigo,
             setTaxesfreeLoading,
             setTaxesfree,
-            setErrorTaxesfree} from "../reducers/ApiCloubedsSlice";
+            setErrorTaxesfree,
+            setLoadingReservationCloubedsRangeDate,
+            setGeReservationCloubedsRangeDate,
+            setErrorReservationCloubedsRangeDate} from "../reducers/ApiCloubedsSlice";
 import { toast } from "sonner";
 import Httpclient from "../Httpclient";
 import { useDispatch } from "react-redux";
@@ -59,17 +62,34 @@ const useCloubesActions =() =>{
     const getReservationCloubeds =async({token,propertyID,search}) =>{
         dispatch(setLoadingReservationCloubeds())
         try {
-        const response =   await Httpclient.PostGetReservationBypropertyID({token,propertyID,search})
-    
-        if(response){
+            const response =  await Httpclient.PostGetReservationBypropertyID({token,propertyID,search})
+        
+            if(response){
                     dispatch(setGeReservationCloubeds(response)) 
-                    
-        }else{
+                        
+            }else{
                     dispatch(setErrorReservationCloubeds("no found"))
-                    
-        }
+                        
+            }
         } catch (error) {
                     dispatch(setErrorReservationCloubeds("no found"))
+        }
+    }
+    
+    const getReservationCloubedsRangeDate =async({token,propertyID,start,end,search}) =>{
+        dispatch(setLoadingReservationCloubedsRangeDate())
+        try {
+            const response =  await Httpclient.GetReservationBypropertyRangeDate({token,propertyID,start,end,search})
+        
+            if(response){
+                    dispatch(setGeReservationCloubedsRangeDate(response)) 
+                        
+            }else{
+                    dispatch(setErrorReservationCloubedsRangeDate("no found"))
+                        
+            }
+        } catch (error) {
+                    dispatch(setErrorReservationCloubedsRangeDate("no found"))
         }
     }
 
@@ -259,7 +279,8 @@ const useCloubesActions =() =>{
         GetPaymentCloubedsActions,
         PostRegisterSigoCloudbeds,
         dispatch,
-        GetTaxesFree
+        GetTaxesFree,
+        getReservationCloubedsRangeDate
     }
 
 }

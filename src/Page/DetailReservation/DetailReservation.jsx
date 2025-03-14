@@ -20,8 +20,6 @@ const DetailReservation =() =>{
         await getReservationDetailCloubeds({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID,reservationID:id})
     }
 
-    
-
     useEffect(() =>{
         fetData()
     },[id])

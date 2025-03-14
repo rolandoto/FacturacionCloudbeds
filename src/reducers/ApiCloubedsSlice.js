@@ -10,6 +10,11 @@ export const initialState ={
     loadingReservationCloubeds:false,
     errorgetReservationcloubeds:false,
 
+    //ReservationRange
+    HotelCloubedsReservationRange:[],
+    loadingReservationCloubedsRange:false,
+    errorgetReservationcloubedsRange:false,
+
     //Detailreservation
     HotelCloubedsReservationDetail:[],
     loadingReservationDetailCloubeds:false,
@@ -65,6 +70,20 @@ export const ApiCloubedsSlice = createSlice({
         setErrorGetHotelCloubeds:(state) =>{
             state.loadingGetHotelCloubeds = false
             state.errorgetHotelCloubeds = true
+        },
+
+        //ReservationRangeDate
+        setLoadingReservationCloubedsRangeDate:(state) =>{
+            state.loadingReservationCloubedsRange=true
+            state.errorgetReservationcloubedsRange= null
+        },
+        setGeReservationCloubedsRangeDate:(state,action) =>{
+            state.HotelCloubedsReservationRange =action.payload
+            state.loadingReservationCloubedsRange= false
+        },
+        setErrorReservationCloubedsRangeDate:(state) =>{
+            state.loadingReservationCloubedsRange = false
+            state.errorgetReservationcloubedsRange = true
         },
 
 
@@ -242,7 +261,6 @@ export const {  setLoadingGetHotelCloubeds,
                 setErrorGetPaymentCloubeds,
 
 
-
                 setLoadingRegisterSigo,
                 setGetRegisterSigo,
                 setErrorRegisterSigo,
@@ -250,7 +268,12 @@ export const {  setLoadingGetHotelCloubeds,
 
                 setTaxesfreeLoading,
                 setTaxesfree,
-                setErrorTaxesfree
+                setErrorTaxesfree,
+
+        
+                setLoadingReservationCloubedsRangeDate,
+                setGeReservationCloubedsRangeDate,
+                setErrorReservationCloubedsRangeDate
 
                 
 } = ApiCloubedsSlice.actions

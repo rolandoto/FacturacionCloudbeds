@@ -307,8 +307,9 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
 
     const select = ListClient?.data?.results?.find((item) => item.identification == searchTerm)
 
-    /**
-     * document: {
+
+    const response= {
+      document: {
         id: jwt?.result?.id_document
       },
       date: DateExit,
@@ -341,11 +342,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
       items,
       payments,
       additional_fields: {}
-     * 
-     */
-
-    const response= {
-      
     };  
 
     console.log(response)

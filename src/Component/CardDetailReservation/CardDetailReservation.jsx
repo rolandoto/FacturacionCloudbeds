@@ -27,7 +27,7 @@ const CardDetailReservation =({reservationID,guestName,balanceDetailed,rooms,res
 
 
                 
-                <div className="bg-white rounded-lg p-4   border-t-4  border-[#3366ff]" >
+                <div className="bg-white rounded-lg p-4  border-[#3366ff]  border-t-4  " >
                     <header className="flex  justify-between  items-center mb-4">
                                     <div className="flex items-center">
                                         <h1 className="text-2xl  font-medium text-[#3366ff]">Resumen de cuenta</h1>
