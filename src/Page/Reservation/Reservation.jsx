@@ -85,24 +85,33 @@ const handleChangeDate = useCallback((event) => {
                     <h3 className="font-semibold">{reserva.guestName}</h3>
                     <p className="text-sm text-gray-600">ID {reserva.reservationID}</p>
                   </div>
-                 
-                  <span className="px-3 py-1  text-gray-800 rounded-lg text-sm">
-                    <span className={`${reserva.status === "checked_out" && "status-dot" }
-                                        ${reserva.status === "confirmed" && "status-dot-conirmed" }
-                                        ${reserva.status === "canceled" && "status-dot-Cancel" }
-                                        ${reserva.status === "not_confirmed" && "status-dot-not-confirmed" }
-                                        ${reserva.status === "no_show" && "status-dot-not-show" }
-                                        ${reserva.status === "checked_in" && "status-dot" }`}></span>
-                                        <span className="truncate">
-                                        {reserva.status === "checked_in" && "Hospedado"}
-                                        {reserva.status === "checked_out" && "Checked Out"}
-                                        {reserva.status === "no_show" && "No show"}
-                                        {reserva.status === "confirmed" && "Confirmado"}
-                                        {reserva.status === "canceled" && "Cancelada"}
-                                        {reserva.status === "not_confirmed" && "Confirmación pendiente"}
-                    </span>
-                  </span>
+
+                  <div className="flex flex-block" >
+                      <span className="px-3 py-1  text-gray-800 rounded-lg text-sm">
+                        <span className={` ${reserva.status === "checked_out" && "status-dot" }
+                                            ${reserva.status === "confirmed" && "status-dot-conirmed" }
+                                            ${reserva.status === "canceled" && "status-dot-Cancel" }
+                                            ${reserva.status === "not_confirmed" && "status-dot-not-confirmed" }
+                                            ${reserva.status === "no_show" && "status-dot-not-show" }
+                                            ${reserva.status === "checked_in" && "status-dot" }`}></span>
+                        <span className="text-[10px] truncate">
+                                            {reserva.status === "checked_in" && "Hospedado"}
+                                            {reserva.status === "checked_out" && "Checked Out"}
+                                            {reserva.status === "no_show" && "No show"}
+                                            {reserva.status === "confirmed" && "Confirmado"}
+                                            {reserva.status === "canceled" && "Cancelada"}
+                                            {reserva.status === "not_confirmed" && "Confirmación pendiente"}
+                        </span>
+                      </span>
+                      {reserva.facturado 
+                        ?
+                        <span className="px-2 py-1 bg-green-200 text-[10px] rounded-lg">Facturado</span>
+                        :<span className="px-2 py-1 text-[10px] bg-gray-200 rounded-lg">No facturado</span>
+                      }
+                  </div>
+                
                 </div>
+                
               ))}
             </div>
             }
@@ -113,11 +122,7 @@ const handleChangeDate = useCallback((event) => {
                 <Header/>
             </div>
             <div className="p-6 max-w-full mx-auto">
-            <div className="flex justify-between items-center mb-4">
-              <select className="border p-2 rounded-lg">
-                <option>My Hotel</option>
-              </select>
-            </div>
+           
 
             <div className="flex p-4 w-full flex-wrap md:flex-nowrap gap-4">
            

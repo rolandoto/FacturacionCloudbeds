@@ -81,12 +81,11 @@ const TablePaymentInvoinces =() =>{
                                             await getPdfSigo({id:itemByIdReservation.ID_facturacion,token:dian.access_token}).then(itemPdf =>{
                                             if (itemPdf.Status !== 500) {
                                                 toast.success("descargardo factura");
-                                                const linkSource = `data:application/pdf;base64,${itemPdf?.base64}`;
-                                                const downloadLink = document.createElement("a");
-                                                const fileName = "file.pdf";
-                                                downloadLink.href = linkSource;
-                                                downloadLink.download = fileName;
-                                                downloadLink.click();
+                                                
+                                            const byteCharacters = atob(itemPdf?.base64.split(",")[1] || itemPdf?.base64); 
+                                            const byteArray = new Uint8Array([...byteCharacters].map(c => c.charCodeAt(0)));
+                                            const fileURL = URL.createObjectURL(new Blob([byteArray], { type: "application/pdf" }));
+                                            window.open(fileURL, "_blank");
                                             } else {
                                                 toast.error("Error al descargar");
                                             }
