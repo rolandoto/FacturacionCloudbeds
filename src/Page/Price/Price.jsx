@@ -32,6 +32,7 @@ const Price = () => {
     const [huespedes, setHuespedes] = useState(1);
     const [noches, setNoches] = useState(8);
     const [totalHospedaje, setTotalHospedaje] = useState(""); // Editable por el usuario
+    const [observacion, setObservacion] = useState("");
 
 
     const cleanedPrice = totalHospedaje.replace(/\./g, '');
@@ -80,9 +81,32 @@ const Price = () => {
         doc.text(`NIT: ${nit}`, 14, 37);
         doc.text(`Correo: ${correo}`, 14, 44);
     
-        // Espaciado antes de la primera tabla
         let startY = 50;
     
+        // Tabla de costos detallada
+        autoTable(doc, {
+            startY,
+            head: [["Descripción", "Cantidad", "Valor Unitario", "Total"]],
+            body: [
+                ["Habitaciones", habitaciones, `$${(costoPorNoche).toLocaleString()}`, `$${parseInt(cleanedPrice).toLocaleString()}`],
+                ["Seguro Hotelero", `${noches * huespedes}`, `$${(seguroPorNoche)}`, `$${(totalSeguroHotelero).toLocaleString()}`],
+                ["Huéspedes", `${huespedes}`],
+            ],
+        });
+    
+        startY = doc.lastAutoTable.finalY + 10;
+    
+            // Sección de Observaciones
+        doc.setFontSize(12);
+        doc.text("Observación:", 14, startY);
+        doc.setFontSize(10);
+
+        // Calcular altura del texto automáticamente
+        const splitObservacion = doc.splitTextToSize(observacion, 180); // Divide el texto en líneas ajustadas al ancho de 180
+        doc.text(splitObservacion, 14, startY + 5);
+
+        // Ajustar startY según la cantidad de líneas de observación
+        startY += 5 + splitObservacion.length * 5; 
         // Tabla de impuestos
         autoTable(doc, {
             startY,
@@ -97,19 +121,7 @@ const Price = () => {
             head: [["Descripción", "Monto Base", "%", "IVA"]],
             body: [
                 ["Habitaciones", `$${(base).toLocaleString()}`, "19%", `$${(ammountIva).toLocaleString()}`],
-                ["Seguro Hotelero", `$${(totalSeguroHotelero)}`, "0%", "$0"],
-            ],
-        });
-    
-        startY = doc.lastAutoTable.finalY + 10;
-    
-        // Tabla de costos detallada
-        autoTable(doc, {
-            startY,
-            head: [["Descripción", "Cantidad", "Valor Unitario", "Total"]],
-            body: [
-                ["Habitaciones", habitaciones, `$${(costoPorNoche).toLocaleString()}`, `$${parseInt(cleanedPrice).toLocaleString()}`],
-                ["Seguro Hotelero", `${noches * huespedes}`, `$${(seguroPorNoche)}`, `$${(totalSeguroHotelero).toLocaleString()}`],
+                ["Seguro Hotelero", `$${(totalSeguroHotelero).toLocaleString()}`, "0%", "$0"],
             ],
         });
     
@@ -131,7 +143,6 @@ const Price = () => {
         // Guardar el documento
         doc.save(`Cotizacion_${razonSocial}.pdf`);
     };
-    
     return (<>
 
             <div className="flex justify-between items-center bg-gray-100 p-4">
@@ -204,7 +215,45 @@ const Price = () => {
                                         />
                                     </div>
 
-                                    
+                                    <div className="mb-4 border-b pb-4">
+                                    <label className="block text-sm font-semibold">Observación:</label>
+                                    <textarea
+                                        value={observacion}
+                                        onChange={(e) => setObservacion(e.target.value)}
+                                        className="border p-2 rounded w-full mb-2"
+                                    ></textarea>
+                                </div>
+
+                                    <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
+                                        <thead>
+                                        <tr className="bg-gray-200">
+                                            <th className="border p-2">Descripción</th>
+                                            <th className="border p-2">Cantidad</th>
+                                            <th className="border p-2">Valor Unitario</th>
+                                            <th className="border p-2">Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td className="border p-2">Habitaciones</td>
+                                            <td className="border p-2">{habitaciones}</td>
+                                            <td className="border p-2">${costoPorNoche.toLocaleString()}</td>
+                                            <td className="border p-2">${parseInt(cleanedPrice).toLocaleString()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border p-2">Seguro Hotelero</td>
+                                            <td className="border p-2">{noches * huespedes}</td>
+                                            <td className="border p-2">${seguroPorNoche.toLocaleString()}</td>
+                                            <td className="border p-2">${totalSeguroHotelero.toLocaleString()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border p-2">Huéspedes</td>
+                                            <td className="border p-2">{huespedes}</td>
+                                            
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
                                     <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
                                             
                                         <thead>
@@ -241,31 +290,6 @@ const Price = () => {
                                         </tbody>
                                     </table>
 
-                                    <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
-                                        <thead>
-                                        <tr className="bg-gray-200">
-                                            <th className="border p-2">Descripción</th>
-                                            <th className="border p-2">Cantidad</th>
-                                            <th className="border p-2">Valor Unitario</th>
-                                            <th className="border p-2">Total</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td className="border p-2">Habitaciones</td>
-                                            <td className="border p-2">{habitaciones}</td>
-                                            <td className="border p-2">${costoPorNoche.toLocaleString()}</td>
-                                            <td className="border p-2">${parseInt(cleanedPrice).toLocaleString()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border p-2">Seguro Hotelero</td>
-                                            <td className="border p-2">{noches * huespedes}</td>
-                                            <td className="border p-2">${seguroPorNoche.toLocaleString()}</td>
-                                            <td className="border p-2">${totalSeguroHotelero.toLocaleString()}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
                                     {/* Desglose de impuestos */}
                                     <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
                                         <tbody>
@@ -296,9 +320,12 @@ const Price = () => {
                                         * El seguro hotelero es de 1.100 por noche y por persona.
                                     </p>
 
+
+
+
                                     <button onClick={handleDownloadPDF} className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-700">
-        Descargar PDF
-      </button>
+                                Descargar PDF
+                            </button>
                 </div>
                 </>);
   };
