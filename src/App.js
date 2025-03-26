@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from './Store/Store';
 import Reservation from './Page/Reservation/Reservation';
 import DetailReservation from './Page/DetailReservation/DetailReservation';
+import Price from './Page/Price/Price';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             }
           />
 
+
         <Route
              path="/reservation/:id"
             element={
@@ -39,6 +41,16 @@ function App() {
                 </PrivateRoute>
             }
           />
+
+        <Route
+             path="/Price"
+            element={
+              <PrivateRoute>
+                <Price />
+                </PrivateRoute>
+            }
+        />
+
       
     </Routes> 
   </BrowserRouter>

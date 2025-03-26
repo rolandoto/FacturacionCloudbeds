@@ -11,6 +11,7 @@ import  AutoProvider  from "../../UseContext.js/Autoprovider"
 import { IoArrowForwardOutline } from "react-icons/io5";
 import useFormValuesForwardEmail from "../../Hooks/useFormValuesForwardEmail"
 import useValidationForwardEmail from "../../Hooks/useValidationForwardEmail"
+import Loading from "../Loading/Loading"
 
 const TablePaymentInvoinces =() =>{
     const {id} = useParams()
@@ -21,9 +22,9 @@ const TablePaymentInvoinces =() =>{
         ErrorPdf
     } =useSelector((state) => state.CitySigoSlice)
 
-    const {forwardEmail,
+    const {
         loadingforwardEmail,
-        ErrorForwardEmail
+ 
     } =useSelector((state) => state.CitySigoSlice)
     const {dian} = useContext(AutoProvider)
     const fetData =async() =>{
@@ -41,7 +42,7 @@ const TablePaymentInvoinces =() =>{
 
     const fillContent =()=>{
         if(LoadingInvoince){
-          return <p>Cargando</p>
+          return <Loading />
         }
         if(ErrorInvoince){
           return <p>Error </p>

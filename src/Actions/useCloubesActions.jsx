@@ -31,7 +31,10 @@ import { setLoadingGetHotelCloubeds,
             setErrorTaxesfree,
             setLoadingReservationCloubedsRangeDate,
             setGeReservationCloubedsRangeDate,
-            setErrorReservationCloubedsRangeDate} from "../reducers/ApiCloubedsSlice";
+            setErrorReservationCloubedsRangeDate,
+            setTransitionLoading,
+            setTransition,
+            setErrorTransition} from "../reducers/ApiCloubedsSlice";
 import { toast } from "sonner";
 import Httpclient from "../Httpclient";
 import { useDispatch } from "react-redux";
@@ -267,6 +270,27 @@ const useCloubesActions =() =>{
     }
 
 
+    const GetTransition =async({token,reservationID}) =>{
+        dispatch(setTransitionLoading())
+          
+            try {
+                const response = await Httpclient.GetTransition({token,reservationID})
+
+                if(response){
+                            dispatch(setTransition(response)) 
+                            toast(<div className="text-green-500" >Se registro </div>)
+
+                }else{
+                            dispatch(setErrorTransition("no found"))
+                            toast(<div className="text-red-500" >Error  registro</div>)
+                }
+                } catch (error) {
+                            dispatch(setErrorTransition("no found"))
+                            toast(<div className="text-red-500" >Error  registro</div>)
+            }
+    }
+
+
 
 
     return {getHotelCloubeds,
@@ -280,7 +304,8 @@ const useCloubesActions =() =>{
         PostRegisterSigoCloudbeds,
         dispatch,
         GetTaxesFree,
-        getReservationCloubedsRangeDate
+        getReservationCloubedsRangeDate,
+        GetTransition
     }
 
 }

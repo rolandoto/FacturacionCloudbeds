@@ -68,11 +68,11 @@ const Dashboard = () =>{
 
       const [amountInUsd, setAmountInUsd] = useState(''); // Estado como string para manejar formato
 
-  // Función para manejar cambios en el input
-  const handleChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ''); // Eliminar cualquier carácter que no sea dígito
-    setAmountInUsd(Number(value).toLocaleString()); // Formatear con puntos de millar
-  };
+      // Función para manejar cambios en el input
+      const handleChange = (e) => {
+        const value = e.target.value.replace(/\D/g, ''); // Eliminar cualquier carácter que no sea dígito
+        setAmountInUsd(Number(value).toLocaleString()); // Formatear con puntos de millar
+      };
     
       const fillContent = () => {
         if (loadingDollar) {
@@ -132,8 +132,7 @@ const Dashboard = () =>{
 
     return <>
             <div className="flex justify-between items-center bg-gray-100 p-4">
-                <Header  
-                             />
+                <Header />
                 </div>
                 <Toaster richColors  />
                 {fillContent()}
