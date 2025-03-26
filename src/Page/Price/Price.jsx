@@ -108,7 +108,7 @@ const Price = () => {
             startY,
             head: [["Descripción", "Cantidad", "Valor Unitario", "Total"]],
             body: [
-                ["Habitaciones", habitaciones, `$${(costoPorNoche).toLocaleString()}`, `$${(ValorBase + ammountIva +totalSeguroHotelero).toLocaleString()}`],
+                ["Habitaciones", habitaciones, `$${(costoPorNoche).toLocaleString()}`, `$${parseInt(cleanedPrice).toLocaleString()}`],
                 ["Seguro Hotelero", `${noches * huespedes}`, `$${(seguroPorNoche)}`, `$${(totalSeguroHotelero).toLocaleString()}`],
             ],
         });
@@ -121,7 +121,7 @@ const Price = () => {
             body: [
                 ["Subtotal", `$${(base + totalSeguroHotelero).toLocaleString()}`],
                 ["IVA (19%)", `$${(ammountIva).toLocaleString()}`],
-                ["Total (Incluye IVA)", `$${(ValorBase + ammountIva +totalSeguroHotelero).toLocaleString()}`],
+                ["Total (Incluye IVA)", `$${parseInt(cleanedPrice).toLocaleString()}`],
                 ["Retención en la Fuente (3.5%)", `$${ammountRte.toLocaleString()}`],
                 ["TOTAL A PAGAR", `$${totalAPagar.toLocaleString()}`],
             ],
@@ -279,7 +279,7 @@ const Price = () => {
                                         </tr>
                                         <tr>
                                             <td className="border p-2 font-semibold">Total (Incluye IVA)</td>
-                                            <td className="border p-2">${(ValorBase + ammountIva +totalSeguroHotelero).toLocaleString()}</td>
+                                            <td className="border p-2">${parseInt(cleanedPrice).toLocaleString()}</td>
                                         </tr>
                                         <tr>
                                             <td className="border p-2 font-semibold">Retención en la Fuente (3.5%)</td>
