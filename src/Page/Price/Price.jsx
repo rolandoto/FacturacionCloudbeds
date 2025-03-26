@@ -57,15 +57,12 @@ const Price = () => {
     // Sumamos la base con el seguro hotelero
     const valorBaseTotal = ValorBase + totalSeguroHotelero;
   
-
-
-
-
     // Cálculo de la retención en la fuente (3.5%)
     const rte = valorBaseTotal * 0.035;
     const ammountRte = Math.round(rte * 100) / 100;
 
     const totalAPagar = cleanedPrice - ammountRte;
+
 
 
     const base = Math.max(ValorBase, 0);
@@ -111,7 +108,7 @@ const Price = () => {
             startY,
             head: [["Descripción", "Cantidad", "Valor Unitario", "Total"]],
             body: [
-                ["Habitaciones", habitaciones, `$${(costoPorNoche).toLocaleString()}`, `$${(totalHospedaje).toLocaleString()}`],
+                ["Habitaciones", habitaciones, `$${(costoPorNoche).toLocaleString()}`, `$${(ValorBase + ammountIva +totalSeguroHotelero).toLocaleString()}`],
                 ["Seguro Hotelero", `${noches * huespedes}`, `$${(seguroPorNoche)}`, `$${(totalSeguroHotelero).toLocaleString()}`],
             ],
         });
