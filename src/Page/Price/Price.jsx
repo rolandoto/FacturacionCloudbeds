@@ -30,7 +30,7 @@ const Price = () => {
     // Estado para la cantidad de habitaciones, huéspedes, noches y precio total
     const [habitaciones, setHabitaciones] = useState(1);
     const [huespedes, setHuespedes] = useState(1);
-    const [noches, setNoches] = useState(8);
+    const [noches, setNoches] = useState(0);
     const [totalHospedaje, setTotalHospedaje] = useState(""); // Editable por el usuario
     const [observacion, setObservacion] = useState("");
 
@@ -64,9 +64,9 @@ const Price = () => {
 
     const totalAPagar = cleanedPrice - ammountRte;
 
-
-
     const base = Math.max(ValorBase, 0);
+    const cleanedPriceMath = Math.max(cleanedPrice, 0);
+
 
     const handleDownloadPDF = () => {
         const doc = new jsPDF();
@@ -86,11 +86,12 @@ const Price = () => {
         // Tabla de costos detallada
         autoTable(doc, {
             startY,
-            head: [["Descripción", "Cantidad", "Valor Unitario", "Total"]],
+            head: [["Descripción", "Cantidad", "Total"]],
             body: [
-                ["Habitaciones", habitaciones, `$${(costoPorNoche).toLocaleString()}`, `$${parseInt(cleanedPrice).toLocaleString()}`],
+                ["Habitaciones", habitaciones,  `$${parseInt(cleanedPriceMath).toLocaleString()}`],
                 ["Seguro Hotelero", `${noches * huespedes}`, `$${(seguroPorNoche)}`, `$${(totalSeguroHotelero).toLocaleString()}`],
                 ["Huéspedes", `${huespedes}`],
+                ["Noches", `${noches}`],
             ],
         });
     
@@ -133,7 +134,7 @@ const Price = () => {
             body: [
                 ["Subtotal", `$${(base + totalSeguroHotelero).toLocaleString()}`],
                 ["IVA (19%)", `$${(ammountIva).toLocaleString()}`],
-                ["Total (Incluye IVA)", `$${parseInt(cleanedPrice).toLocaleString()}`],
+                ["Total (Incluye IVA)", `$${parseInt(cleanedPriceMath).toLocaleString()}`],
                 ["Retención en la Fuente (3.5%)", `$${ammountRte.toLocaleString()}`],
                 ["TOTAL A PAGAR", `$${totalAPagar.toLocaleString()}`],
             ],
@@ -238,7 +239,7 @@ const Price = () => {
                                             <td className="border p-2">Habitaciones</td>
                                             <td className="border p-2">{habitaciones}</td>
                                             <td className="border p-2">${costoPorNoche.toLocaleString()}</td>
-                                            <td className="border p-2">${parseInt(cleanedPrice).toLocaleString()}</td>
+                                            <td className="border p-2">${parseInt(cleanedPriceMath).toLocaleString()}</td>
                                         </tr>
                                         <tr>
                                             <td className="border p-2">Seguro Hotelero</td>
@@ -295,23 +296,23 @@ const Price = () => {
                                         <tbody>
                                         <tr>
                                             <td className="border p-2 font-semibold">Subtotal</td>
-                                            <td className="border p-2">${(base +totalSeguroHotelero).toLocaleString()}</td>
+                                            <td className="border p-2">${parseInt(base +totalSeguroHotelero).toLocaleString()}</td>
                                         </tr>
                                         <tr>
                                             <td className="border p-2 font-semibold">IVA (19%)</td>
-                                            <td className="border p-2">${ammountIva.toLocaleString()}</td>
+                                            <td className="border p-2">${parseInt(ammountIva).toLocaleString()}</td>
                                         </tr>
                                         <tr>
                                             <td className="border p-2 font-semibold">Total (Incluye IVA)</td>
-                                            <td className="border p-2">${parseInt(cleanedPrice).toLocaleString()}</td>
+                                            <td className="border p-2">${parseInt(cleanedPriceMath).toLocaleString()}</td>
                                         </tr>
                                         <tr>
                                             <td className="border p-2 font-semibold">Retención en la Fuente (3.5%)</td>
-                                            <td className="border p-2">${ammountRte.toLocaleString()}</td>
+                                            <td className="border p-2">${parseInt(ammountRte).toLocaleString()}</td>
                                         </tr>
                                         <tr className="font-bold bg-gray-100">
                                             <td className="border p-2">TOTAL A PAGAR</td>
-                                            <td className="border p-2 text-lg">${totalAPagar.toLocaleString()}</td>
+                                            <td className="border p-2 text-lg">${parseInt(totalAPagar).toLocaleString()}</td>
                                         </tr>
                                         </tbody>
                                     </table>
