@@ -438,7 +438,7 @@ const InvoinceRelax =() =>{
           },
           seller: 50,
           stamp: {
-            send: false
+            send: true
           },
           mail: {
             send: true
