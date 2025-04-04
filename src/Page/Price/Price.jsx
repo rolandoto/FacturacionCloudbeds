@@ -265,8 +265,7 @@ const Price = () => {
                                         </thead>
                                         
                                     </table>
-                                    <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
-                                            
+                                    <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">    
                                         <thead>
                                         <tr className="bg-gray-200">
                                             <th className="border p-2">Descripción</th>
@@ -291,7 +290,6 @@ const Price = () => {
                                         </tbody>
                                     </table>
 
-                                    {/* Desglose de impuestos */}
                                     <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
                                         <tbody>
                                         <tr>

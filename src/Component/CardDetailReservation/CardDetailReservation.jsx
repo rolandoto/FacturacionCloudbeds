@@ -85,7 +85,7 @@ const CardDetailReservation =({reservationID,guestName,balanceDetailed,rooms,res
                 <header className="flex justify-between items-center mb-4">
                     <h1 className="text-2xl font-bold text-gray-800">{guestName}</h1>
                 </header>
-                <GuestTable />
+            <GuestTable />
             </section>
         </div>
             </>

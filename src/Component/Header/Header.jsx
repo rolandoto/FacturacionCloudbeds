@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from  "react"
 import { RxHamburgerMenu } from "react-icons/rx";
-import { IoIosAddCircle } from "react-icons/io";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { TbBed } from "react-icons/tb";
 import { IoExitOutline } from "react-icons/io5";
@@ -13,7 +12,7 @@ import { useDebounce } from "use-debounce";
 import { Spinner } from "@nextui-org/react";
 import { FaDollarSign } from "react-icons/fa";
 import { MdOutlinePriceChange } from "react-icons/md";
-
+import { CiMoneyBill } from "react-icons/ci";
 
 const Header =()  =>{
 
@@ -44,6 +43,13 @@ const Header =()  =>{
     const goToPrice = () => {
         navigate(`/Price`);
     };
+
+
+    const goToInvoinceRelax = () => {
+        navigate(`/InvoinceRelax`);
+    };
+
+
 
     const fetData =async() =>{
         await getHotelCloubeds({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID})
@@ -155,8 +161,6 @@ const Header =()  =>{
                         </div>
                         }
                     </div>
-                    
-             
                 <div className="flex items-center">
                         <div className="mr-4 p-2">
                            <span className="status-dot" ></span>  <span className="font-semibold"  >{jwt?.result?.name}</span>
@@ -169,6 +173,9 @@ const Header =()  =>{
                     </button>
                     <button className="mr-4 p-2"  onClick={goToCalendar} > 
                         <FaRegCalendarAlt fontSize={18} />
+                    </button>
+                    <button className="mr-4 p-2"  onClick={goToInvoinceRelax} > 
+                        <CiMoneyBill fontSize={20} />
                     </button>
                     <button className="mr-4 p-2">
                         <TbBed fontSize={25} />

@@ -12,8 +12,8 @@ import  AutoProvider  from "../../UseContext.js/Autoprovider"
 import UseAroundIpoconsumo from "../../Hooks/UseAroundIpoconsumo"
 import UseRoundRention from "../../Hooks/UseRoundRention"
 import UseRoundRetentionSinIva from "../../Hooks/UseRoundRetentionSinIva"
-import { useDebounce } from 'use-debounce';
 import { Tooltip } from "react-tooltip";
+
 
 const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Payment,reservationCheckIn,reservationCheckOut}) =>{
 
@@ -53,7 +53,7 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     const totalAmount = sumWithInitial +sumWithInitialMinibar
 
     const additionalItemsPayment=  checkedItem2 ? parseInt(additionalItems) :0
-    const subTotalPayment = parseInt(880000)
+    const subTotalPayment = parseInt(915000)
     const taxesFeesPayment=  checkedItem4 ?  parseInt(taxesFees) : 0
 
 
@@ -230,8 +230,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
         }
       }, [filterItemsExecento, totalPrice]);
 
-    
-    
     const ProductRententionExtra  =  itemRetention.concat(itemIvaIpoconsumo)
     const validProduct =  typeIva ? itemIva   :itemsExenta
     const ItemIpoconsumo  =  validProduct.concat(itemIvaIpoconsumo)
@@ -258,7 +256,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
     }]
 
     const now = moment().format('YYYY-MM-DD HH:mm:ss');
-
     const [searchTerm, setSearchTerm] = useState(null); // Inicializar con null
 
     // Actualizar searchTerm cuando cambie Reservation
@@ -281,16 +278,7 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
 
     fetchSearchResults();
     }, [searchTerm]); // Dependencia en searchTerm
-
-    const fetData =async() =>{
-        await GetPaymentCloubedsActions({id})
-        await GetTaxesFree({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID})
-        await  getProductDian({token:dian.access_token})
-        await getReservation({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID,reservationID:id})
-    }
-    useEffect(() =>{
-            fetData()
-    },[])
+    
     
     const DateExit = moment().utc().format('YYYY-MM-DD')
 
@@ -332,7 +320,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
       additional_fields: {}
     };  
 
-
     const key = `my-tooltip`;
 
     const fillContentTaxes =()=>{
@@ -348,9 +335,6 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
        }) 
     }
 
-
-  
-    
     const handleInvoiceSubmission =async() =>{
         if(DiscountSubTotal ==0){
             toast(<div className="text-red-500" >No tiene saldo pendiente</div>)
@@ -476,9 +460,7 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
                 </div>
             <Button isDisabled={loadingPostPaymentCloubeds}  onClick={handleInvoiceSubmission}   className="bg-[#3366ff]  mt-4 rounded-none text-white px-4 py-2 ">Enviar factura electrónica </Button>
         </>
-
     }
-
     return <>{fillContent()}</>
 
 }

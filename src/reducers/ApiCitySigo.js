@@ -23,7 +23,17 @@ const initialState={
 
     forwardEmail:[],
     loadingforwardEmail:false,
-    ErrorForwardEmail:false
+    ErrorForwardEmail:false,
+
+
+    PaymentSiigo:[],
+    loadingPaymentSiigo:false,
+    ErrorPaymentSiigo:false,
+
+
+    InvoinceDianSiigo:[],
+    loadingInvoinceDianSiigo:false,
+    ErrorInvoinceDianSiigoo:false
 
 }
 
@@ -116,6 +126,35 @@ export const CitySigoSlice = createSlice({
         setErrorForwardEmail:(state,action) =>{
             state.loadingforwardEmail = false
             state.ErrorForwardEmail = true
+        },
+
+
+        loadingPaymentSiigo:(state) =>{
+            state.loadingPaymentSiigo =true
+            state.ErrorPaymentSiigo = false
+        },
+        setPaymentSiigo:(state,action) =>{
+            state.PaymentSiigo =action.payload
+            state.loadingPaymentSiigo =false
+        },
+        setErrorPaymentSiigo:(state,action) =>{
+            state.loadingPaymentSiigo = false
+            state.ErrorPaymentSiigo = true
+        },
+
+
+
+        loadingInvoinceDianSiigo:(state) =>{
+            state.loadingInvoinceDianSiigo =true
+            state.ErrorInvoinceDianSiigoo = false
+        },
+        setInvoinceDianSiigo:(state,action) =>{
+            state.InvoinceDianSiigo =action.payload
+            state.loadingInvoinceDianSiigo =false
+        },
+        setErrorInvoinceDianSiigo:(state,action) =>{
+            state.loadingInvoinceDianSiigo = false
+            state.ErrorInvoinceDianSiigoo = true
         }
     }
 })
@@ -137,6 +176,14 @@ export const {loadingCitySigo,
                 setErrorPdf,
                 loadingForwardEmail,
                 setForwardEmail,
-                setErrorForwardEmail} = CitySigoSlice.actions
+                setErrorForwardEmail,
+            
+                loadingPaymentSiigo,
+                setPaymentSiigo,
+                setErrorPaymentSiigo,
+            
+                loadingInvoinceDianSiigo,
+                setInvoinceDianSiigo,
+                setErrorInvoinceDianSiigo} = CitySigoSlice.actions
 
 export default CitySigoSlice.reducer

@@ -168,7 +168,6 @@ const GuestTable =() =>{
         ]
       }
 
-
       const handleSubmit = async(e) => {
         e.preventDefault();
         const errors = validate(formValues);
@@ -177,11 +176,6 @@ const GuestTable =() =>{
             await PostRegisterCloubeds({ID_Tipo_documento:formValues.tipoDocument,ID_city:formValues.city,ReservationID:id,token:dian.access_token,body})
           }
       };
-
-   /* const handleSubmitRegisterSigo = async() => {
-            await PostRegisterSigoCloudbeds({token:dian.access_token,body})
-      };
-*/
    
     const filteredCities = useMemo(() => {
         return City.filter(city =>

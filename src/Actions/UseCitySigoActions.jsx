@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import Httpclient from "../Httpclient"
-import { loadingCitySigo, loadingClient, loadingForwardEmail, loadingInvoince, loadingPdf, loadingProductDian, setCitySigo, setClient, setErrorCitySigo, setErrorClient, setErrorForwardEmail, setErrorInvoince, setErrorPdf, setErrrorProductDian, setForwardEmail, setInvoince, setPdf, setProductDian } from "../reducers/ApiCitySigo"
+import { loadingCitySigo, loadingClient, loadingForwardEmail, loadingInvoince, loadingInvoinceDianSiigo, loadingPaymentSiigo, loadingPdf, loadingProductDian, setCitySigo, setClient, setErrorCitySigo, setErrorClient, setErrorForwardEmail, setErrorInvoince, setErrorInvoinceDianSiigo, setErrorPaymentSiigo, setErrorPdf, setErrrorProductDian, setForwardEmail, setInvoince, setInvoinceDianSiigo, setPaymentSiigo, setPdf, setProductDian } from "../reducers/ApiCitySigo"
 import { toast } from "sonner"
 
 const UseCitySigoActions =() =>{
@@ -110,13 +110,54 @@ const UseCitySigoActions =() =>{
         }
     }
 
+
+    const PostTypePayment =async({token}) =>{
+        dispatch(loadingPaymentSiigo())
+        try {
+            const response =  await  Httpclient.GetTypePaymentSiigo({token})
+           
+            if(response){
+                dispatch(setPaymentSiigo(response))
+                
+            }else{
+               dispatch(setErrorPaymentSiigo("error no found"))
+           
+            }
+        } catch (error) {
+            dispatch(setErrorPaymentSiigo("error no found"))
+           
+        }
+    }
+
+
+    const PostInvoinceDian =async({fecha}) =>{
+      
+        dispatch(loadingInvoinceDianSiigo())
+        try {
+            const response =  await  Httpclient.GetInvoinceDian({fecha})
+            
+            if(response){
+                dispatch(setInvoinceDianSiigo(response))
+                
+            }else{
+               dispatch(setInvoinceDianSiigo("error no found"))
+           
+            }
+        } catch (error) {
+            dispatch(setErrorInvoinceDianSiigo("error no found"))
+           
+        }
+    }
+
     return {
         getCitySigo,
         getProductDian,
         GetCLientDian,
         GetInvoince,
         getPdfSigo,
-        PostForwardEmail
+        PostForwardEmail,
+        PostTypePayment,
+        PostInvoinceDian
     }
 
 }

@@ -1,6 +1,6 @@
 export const config = {
    serverRoute: "https://test-prueba-production.up.railway.app"
-    //serverRoute: "http://localhost:3001"
+   //serverRoute: "http://localhost:3001"
  }
  
  export const SocketRoute = {
@@ -9,7 +9,7 @@ export const config = {
  }
  
  export const CLoubedsRoute ={
-    serverRoute: "https://railway.grupo-hoteles.com"
+   serverRoute: "https://railway.grupo-hoteles.com"
     //serverRoute:"http://localhost:3001"
  }
  

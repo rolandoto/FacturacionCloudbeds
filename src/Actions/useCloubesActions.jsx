@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { setLoadingGetHotelCloubeds,
             setGetHotelCloubeds,
             setErrorGetHotelCloubeds ,
@@ -41,7 +41,18 @@ import { useDispatch } from "react-redux";
 
 const useCloubesActions =() =>{
 
+    const [currentStep, setCurrentStep] = useState(1);
+    const [animationDirection, setAnimationDirection] = useState('forward');
+
     const dispatch =  useDispatch()
+
+    const nextStep = () => {
+        if (currentStep < 3) {
+          setAnimationDirection('forward');
+          setCurrentStep(currentStep + 1);
+        }
+      };
+      
     
     const getHotelCloubeds =async({token,propertyID}) =>{
             dispatch(setLoadingGetHotelCloubeds())
@@ -137,12 +148,13 @@ const useCloubesActions =() =>{
 
     const PostRegisterCloubeds =async({ID_Tipo_documento,ID_city,ReservationID,token,body}) =>{
         dispatch(setLoadingRegisterCloubesd())
-        
+
             try {
                 const response =   await Httpclient.PostRegisterCloubeds({ID_Tipo_documento,ID_city,ReservationID,token,body})
-                window.location.reload()  
+                
                 if(response){
                             dispatch(setRegisterCloubesd(response)) 
+                            nextStep()
                             toast(<div className="text-green-500" >Se registro </div>)
                 }else{
                             dispatch(setErrorRegisterCloubesd("no found"))
@@ -290,6 +302,10 @@ const useCloubesActions =() =>{
             }
     }
 
+    
+
+
+ 
 
 
 
@@ -305,7 +321,12 @@ const useCloubesActions =() =>{
         dispatch,
         GetTaxesFree,
         getReservationCloubedsRangeDate,
-        GetTransition
+        GetTransition,
+        currentStep,
+        setCurrentStep,
+        animationDirection, 
+        setAnimationDirection,
+        nextStep
     }
 
 }

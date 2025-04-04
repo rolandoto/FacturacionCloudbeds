@@ -370,6 +370,30 @@ const GetSalesInvoice= async({token,id}) => {
   }
 };
 
+
+
+const GetTypePaymentSiigo= async({token}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/getTypePaymentSiigo`, {
+      method: "POST",
+      body: JSON.stringify({ token}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {data} = await resp.json();
+    return data
+    
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
+
 const Gettaxesfree= async({propertyID,token}) => {
   try {
     const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/getTaxesfree`, {
@@ -390,6 +414,10 @@ const Gettaxesfree= async({propertyID,token}) => {
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
+
+
+
+
 
 const GetTransition= async({reservationID,token}) => {
   try {
@@ -456,6 +484,30 @@ const RatesDollar  = async () => {
   }
 };
 
+
+const GetInvoinceDian= async({fecha}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/getInvoniceDian`, {
+      method: "POST",
+      body: JSON.stringify({fecha}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {query} = await resp.json();
+    return query
+    
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
+
+
   export default {
     GetListHotel,
     LoginService,
@@ -478,6 +530,8 @@ const RatesDollar  = async () => {
     PostForwardEmail,
     RatesDollar,
     Gettaxesfree,
-    GetTransition
+    GetTransition,
+    GetTypePaymentSiigo,
+    GetInvoinceDian
   }
 

@@ -8,6 +8,7 @@ import store from './Store/Store';
 import Reservation from './Page/Reservation/Reservation';
 import DetailReservation from './Page/DetailReservation/DetailReservation';
 import Price from './Page/Price/Price';
+import InvoinceRelax from './Page/InvoinceRelax';
 
 function App() {
   return (
@@ -22,7 +23,6 @@ function App() {
                 </PrivateRoute>
             }
           />
-
       <Route
              path="/connect/:id"
             element={
@@ -31,8 +31,6 @@ function App() {
                 </PrivateRoute>
             }
           />
-
-
         <Route
              path="/reservation/:id"
             element={
@@ -48,6 +46,15 @@ function App() {
               <PrivateRoute>
                 <Price />
                 </PrivateRoute>
+            }
+        />
+
+        <Route
+             path="/InvoinceRelax"
+            element={
+              <PrivateRoute>
+                <InvoinceRelax />
+              </PrivateRoute>
             }
         />
 
