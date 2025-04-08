@@ -573,17 +573,23 @@ const InvoinceRelax =() =>{
 
                   <label className="block text-gray-700 font-medium mt-2 mb-2">Valor del Pago</label>
                   <input
-                    type="number"
-                    className="w-full border border-gray-300 p-2 rounded-lg"
-                    placeholder="Ingrese el monto"
-                    value={numberWithCommas(payment.value)}
-                    onChange={(e) => {
-                      const rawValue = e.target.value.replace(/\./g, "").replace(/,/g, "");
-                      if (!isNaN(rawValue)) {
-                        updatePayment(index, "value", rawValue);
-                      }
-                    }}
-                  />
+                      type="text" // <-- cambiar aquí
+                      className="w-full border border-gray-300 p-2 rounded-lg"
+                      placeholder="Ingrese el monto"
+                      value={numberWithCommas(payment.value)}
+                      onChange={(e) => {
+                        const rawValue = e.target.value.replace(/\./g, "").replace(/,/g, "");
+                        const numericValue = parseInt(rawValue);
+
+                        if (!isNaN(numericValue) && numericValue <= 10000000) {
+                          updatePayment(index, "value", numericValue);
+                        } else if (numericValue > 10000000) {
+                          console.warn("⚠️ El monto no puede ser mayor a 10.000.000");
+                        }
+                      }}
+                    />
+
+
 
                   {valPayments.length > 1 && (
                     <button
