@@ -216,8 +216,9 @@ const InvoinceRelax =() =>{
           quantity: 1,
           price: SubtotalDianSinIva,
           discount: 0.00,
-          taxes: [{
-            id:13709,
+          taxes:  [{
+            id: 18917
+          }, {
             id: 1035
           }]
         }))
@@ -315,6 +316,8 @@ const InvoinceRelax =() =>{
   const items =   checkboxes.iva.checked && checkboxes.retencion.checked ? itemRetention :   (checkboxes.iva.checked ? itemIva : 
     checkboxes.retencion_agencias.checked ? itemRetentionOnlyRetention : itemsExenta
   );
+
+  console.log(items)
 
     const body = {
         "type": "Customer",
