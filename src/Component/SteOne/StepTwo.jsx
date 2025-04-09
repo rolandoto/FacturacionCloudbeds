@@ -41,7 +41,7 @@ return <>
             />
           </div>
 
-          {["iva", "retencion"].map((item) => (
+          {["iva", "retencion","retencion_agencias"].map((item) => (
             <div key={item} className="flex items-center mb-2">
               <div onClick={() => handleCheckboxChange(item)} className="cursor-pointer">
                 {checkboxes[item].checked ? (

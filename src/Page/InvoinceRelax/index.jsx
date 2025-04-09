@@ -62,6 +62,7 @@ const InvoinceRelax =() =>{
   const [checkboxes, setCheckboxes] = useState({
     iva: { checked: false},
     retencion: { checked: false},
+    retencion_agencias: { checked: false},
 
   });
 
@@ -74,7 +75,6 @@ const InvoinceRelax =() =>{
         nextStep} = useCloubesActions()
     const {document} =UseDocument()
     const {getCitySigo,GetCLientDian,getProductDian,PostTypePayment,PostInvoinceDian} = UseCitySigoActions()
-    const {} =useSelector((state) => state.CitySigoSlice)
 
     const { ListClient,loadingClient,ErrorClient,ProductDian,loadingProductDian,ErrorProductDian} =useSelector((state) => state.CitySigoSlice)
 
@@ -207,7 +207,35 @@ const InvoinceRelax =() =>{
     const {SubtotalDian,TotalRetentionDian} =UseRoundRetention({Price:totalPrice})
     const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:totalPrice})
 
-  
+
+    const itemRetentionOnlyRetention = useMemo(() => {
+      if(filteredItems.some((item) =>item.taxes)){
+        return   filteredItems?.map(item => ({
+          code: `${item.code}`,
+          description: `${item.name}`,
+          quantity: 1,
+          price: SubtotalDianSinIva,
+          discount: 0.00,
+          taxes: [{
+            id:13709,
+            id: 1035
+          }]
+        }))
+      }else{
+        return   filteredItems?.map(item => ({
+          code: `${item.code}`,
+          description: `${item.name}`,
+          quantity: 1,
+          price: SubtotalDianSinIva,
+          discount: 0.00,
+          taxes: [{
+            id: 1035
+          }]
+        }))
+      }
+    } , [filteredItems, SubtotalDian])
+
+    
     const itemRetention = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
         return   filteredItems?.map(item => ({
@@ -284,9 +312,9 @@ const InvoinceRelax =() =>{
   }, [filterItemsExecento, totalPrice]);
 
 
-  const items = checkboxes.iva.checked && checkboxes.retencion.checked
-  ? itemRetention : (checkboxes.iva.checked ? itemIva : itemsExenta);
-
+  const items =   checkboxes.iva.checked && checkboxes.retencion.checked ? itemRetention :   (checkboxes.iva.checked ? itemIva : 
+    checkboxes.retencion_agencias.checked ? itemRetentionOnlyRetention : itemsExenta
+  );
 
     const body = {
         "type": "Customer",
@@ -344,6 +372,7 @@ const InvoinceRelax =() =>{
             await PostRegisterCloubeds({ID_Tipo_documento:formValues.tipoDocument,ID_city:formValues.city,ReservationID:formValues.document,token:dian.access_token,body})
           }
       };
+
 
    
     const filteredCities = useMemo(() => {
@@ -450,8 +479,7 @@ const InvoinceRelax =() =>{
         };  
 
  
-     
-
+  
         // Agregar un nuevo método de pago
         const addPayment = () => {
           setvalPayments([...valPayments, { id: null, value:0 }]);
@@ -495,13 +523,11 @@ const InvoinceRelax =() =>{
         <Toaster   />
 
     
-        <div className="max-w-7xl mx-auto p-6 font-sans">
-  <h1 className="text-3xl font-bold mb-6 text-gray-900">Confirma y paga</h1>
-
-  {/* Layout de 2 columnas */}
-  <div className="flex flex-col lg:flex-row gap-6">
-    
-    {/* Columna izquierda: Formulario de pasos */}
+    <div className="max-w-7xl mx-auto p-6 font-sans">
+      <h1 className="text-3xl font-bold mb-6 text-gray-900">Confirma y paga</h1>
+      <div className="flex flex-col lg:flex-row gap-6">
+        
+        {/* Columna izquierda: Formulario de pasos */}
     <div className="flex-1 space-y-6">
 
       {/* Step One */}
