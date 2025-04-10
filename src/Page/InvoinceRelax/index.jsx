@@ -207,10 +207,10 @@ const InvoinceRelax =() =>{
     const {SubtotalDian,TotalRetentionDian} =UseRoundRetention({Price:totalPrice})
     const {SubtotalDianSinIva,TotalRetentionDianSinIva,TotalPaySinIva} =UseRoundRetentionSinIva({Price:totalPrice})
 
-
+    
     const itemRetentionOnlyRetention = useMemo(() => {
       if(filteredItems.some((item) =>item.taxes)){
-        return   filteredItems?.map(item => ({
+        return   filterItemsExecento?.map(item => ({
           code: `${item.code}`,
           description: `${item.name}`,
           quantity: 1,
@@ -223,7 +223,7 @@ const InvoinceRelax =() =>{
           }]
         }))
       }else{
-        return   filteredItems?.map(item => ({
+        return   filterItemsExecento?.map(item => ({
           code: `${item.code}`,
           description: `${item.name}`,
           quantity: 1,
