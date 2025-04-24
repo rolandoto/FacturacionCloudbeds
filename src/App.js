@@ -9,6 +9,8 @@ import Reservation from './Page/Reservation/Reservation';
 import DetailReservation from './Page/DetailReservation/DetailReservation';
 import Price from './Page/Price/Price';
 import InvoinceRelax from './Page/InvoinceRelax';
+import Dollar from './Page/Dollar/Dollar';
+import CityDian from './Page/CityDian/CityDian';
 
 function App() {
   return (
@@ -20,6 +22,15 @@ function App() {
             element={
               <PrivateRoute>
                 <Dashboard />
+                </PrivateRoute>
+            }
+          />
+
+      <Route
+            path="/dashboard/Dollar"
+            element={
+              <PrivateRoute>
+                <Dollar />
                 </PrivateRoute>
             }
           />
@@ -41,7 +52,7 @@ function App() {
           />
 
         <Route
-             path="/Price"
+             path="/dashboard/Cotization"
             element={
               <PrivateRoute>
                 <Price />
@@ -50,13 +61,31 @@ function App() {
         />
 
         <Route
-             path="/InvoinceRelax"
+             path="/dashboard/siigo"
             element={
               <PrivateRoute>
                 <InvoinceRelax />
               </PrivateRoute>
             }
         />
+         <Route
+             path="/dashboard/CityDian"
+            element={
+              <PrivateRoute>
+                <CityDian />
+              </PrivateRoute>
+            }
+        />
+
+
+      <Route
+             path="/Cotization"
+            element={
+              <PrivateRoute>
+                <CityDian />
+              </PrivateRoute>
+            }
+      />
 
       
     </Routes> 

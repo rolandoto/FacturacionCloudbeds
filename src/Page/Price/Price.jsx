@@ -3,6 +3,7 @@ import Header from "../../Component/Header/Header";
 import { Toaster } from "sonner";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import Sidebar from "../../Component/Sidebar/Sidebar";
 
 const numberWithCommas = (event) => {
     // Verificar si el evento no es un número o es negativo
@@ -145,187 +146,185 @@ const Price = () => {
         doc.save(`Cotizacion_${razonSocial}.pdf`);
     };
     return (<>
+            <Sidebar>
+            <Toaster richColors  />
+            <div className="  p-6 bg-white rounded-lg shadow-md border">
+            <h2 className="text-2xl font-bold text-center mb-6">COTIZACIÓN</h2>                  
+            <div className="mb-4 border-b pb-4">
+                                    <label className="block text-sm font-semibold">Razón Social / Nombre:</label>
+                                    <input
+                                    type="text"
+                                    value={razonSocial}
+                                    onChange={(e) => setRazonSocial(e.target.value)}
+                                    className="border p-2 rounded w-full mb-2"
+                                    />
 
-            <div className="flex justify-between items-center bg-gray-100 p-4">
-                <Header />
-                <Toaster richColors  />
-            </div>
-                <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md border">
-                <h2 className="text-2xl font-bold text-center mb-6">COTIZACIÓN</h2>                  
-                <div className="mb-4 border-b pb-4">
-                                        <label className="block text-sm font-semibold">Razón Social / Nombre:</label>
-                                        <input
-                                        type="text"
-                                        value={razonSocial}
-                                        onChange={(e) => setRazonSocial(e.target.value)}
-                                        className="border p-2 rounded w-full mb-2"
-                                        />
+                                    <label className="block text-sm font-semibold">NIT:</label>
+                                    <input
+                                    type="text"
+                                    value={nit}
+                                    onChange={(e) => setNit(e.target.value)}
+                                    className="border p-2 rounded w-full mb-2"
+                                    />
 
-                                        <label className="block text-sm font-semibold">NIT:</label>
-                                        <input
-                                        type="text"
-                                        value={nit}
-                                        onChange={(e) => setNit(e.target.value)}
-                                        className="border p-2 rounded w-full mb-2"
-                                        />
-
-                                        <label className="block text-sm font-semibold">Correo:</label>
-                                        <input
-                                        type="email"
-                                        value={correo}
-                                        onChange={(e) => setCorreo(e.target.value)}
-                                        className="border p-2 rounded w-full mb-2"
-                                        />
-                                    </div>
-
-                                    {/* Datos de hospedaje */}
-                                    <div className="mb-4 border-b pb-4">
-                                        <label className="block text-sm font-semibold">Cantidad de Habitaciones:</label>
-                                        <input
-                                        type="number"
-                                        min="1"
-                                        value={habitaciones}
-                                        onChange={(e) => setHabitaciones(parseInt(e.target.value) || 1)}
-                                        className="border p-2 rounded w-full mb-2"
-                                        />
-
-                                        <label className="block text-sm font-semibold">Cantidad de Huéspedes:</label>
-                                        <input
-                                        type="number"
-                                        min="1"
-                                        value={huespedes}
-                                        onChange={(e) => setHuespedes(parseInt(e.target.value) || 1)}
-                                        className="border p-2 rounded w-full mb-2"
-                                        />
-
-                                        <label className="block text-sm font-semibold">Cantidad de Noches:</label>
-                                        <input
-                                        type="number"
-                                        min="1"
-                                        value={noches}
-                                        onChange={(e) => setNoches(parseInt(e.target.value) || 1)}
-                                        className="border p-2 rounded w-full mb-2"
-                                        />
-
-                                        <label className="block text-sm font-semibold">Precio Total ($):</label>
-                                        <input
-                                        type="text"
-                                        value={totalHospedaje !== '' ? numberWithCommas(totalHospedaje) : ''}
-                                        onChange={(e) => setTotalHospedaje(e.target.value)}
-                                        className="border p-2 rounded w-full mb-2"
-                                        />
-                                    </div>
-
-                                    <div className="mb-4 border-b pb-4">
-                                    <label className="block text-sm font-semibold">Observación:</label>
-                                    <textarea
-                                        value={observacion}
-                                        onChange={(e) => setObservacion(e.target.value)}
-                                        className="border p-2 rounded w-full mb-2"
-                                    ></textarea>
+                                    <label className="block text-sm font-semibold">Correo:</label>
+                                    <input
+                                    type="email"
+                                    value={correo}
+                                    onChange={(e) => setCorreo(e.target.value)}
+                                    className="border p-2 rounded w-full mb-2"
+                                    />
                                 </div>
 
-                                    <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
-                                        <thead>
-                                        <tr className="bg-gray-200">
-                                            <th className="border p-2">Descripción</th>
-                                            <th className="border p-2">Cantidad</th>
-                                            <th className="border p-2">Valor Unitario</th>
-                                            <th className="border p-2">Total</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td className="border p-2">Habitaciones</td>
-                                            <td className="border p-2">{habitaciones}</td>
-                                            <td className="border p-2">${costoPorNoche.toLocaleString()}</td>
-                                            <td className="border p-2">${parseInt(cleanedPriceMath).toLocaleString()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border p-2">Seguro Hotelero</td>
-                                            <td className="border p-2">{noches * huespedes}</td>
-                                            <td className="border p-2">${seguroPorNoche.toLocaleString()}</td>
-                                            <td className="border p-2">${totalSeguroHotelero.toLocaleString()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border p-2">Huéspedes</td>
-                                            <td className="border p-2">{huespedes}</td>
-                                            
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                {/* Datos de hospedaje */}
+                                <div className="mb-4 border-b pb-4">
+                                    <label className="block text-sm font-semibold">Cantidad de Habitaciones:</label>
+                                    <input
+                                    type="number"
+                                    min="1"
+                                    value={habitaciones}
+                                    onChange={(e) => setHabitaciones(parseInt(e.target.value) || 1)}
+                                    className="border p-2 rounded w-full mb-2"
+                                    />
 
-                                    <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
-                                            
-                                        <thead>
-                                        <tr className="bg-gray-200">
-                                            <th className="border p-2">IMPUESTO</th>
-                                           
-                                        </tr>
-                                        </thead>
+                                    <label className="block text-sm font-semibold">Cantidad de Huéspedes:</label>
+                                    <input
+                                    type="number"
+                                    min="1"
+                                    value={huespedes}
+                                    onChange={(e) => setHuespedes(parseInt(e.target.value) || 1)}
+                                    className="border p-2 rounded w-full mb-2"
+                                    />
+
+                                    <label className="block text-sm font-semibold">Cantidad de Noches:</label>
+                                    <input
+                                    type="number"
+                                    min="1"
+                                    value={noches}
+                                    onChange={(e) => setNoches(parseInt(e.target.value) || 1)}
+                                    className="border p-2 rounded w-full mb-2"
+                                    />
+
+                                    <label className="block text-sm font-semibold">Precio Total ($):</label>
+                                    <input
+                                    type="text"
+                                    value={totalHospedaje !== '' ? numberWithCommas(totalHospedaje) : ''}
+                                    onChange={(e) => setTotalHospedaje(e.target.value)}
+                                    className="border p-2 rounded w-full mb-2"
+                                    />
+                                </div>
+
+                                <div className="mb-4 border-b pb-4">
+                                <label className="block text-sm font-semibold">Observación:</label>
+                                <textarea
+                                    value={observacion}
+                                    onChange={(e) => setObservacion(e.target.value)}
+                                    className="border p-2 rounded w-full mb-2"
+                                ></textarea>
+                            </div>
+
+                                <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
+                                    <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className="border p-2">Descripción</th>
+                                        <th className="border p-2">Cantidad</th>
+                                        <th className="border p-2">Valor Unitario</th>
+                                        <th className="border p-2">Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td className="border p-2">Habitaciones</td>
+                                        <td className="border p-2">{habitaciones}</td>
+                                        <td className="border p-2">${costoPorNoche.toLocaleString()}</td>
+                                        <td className="border p-2">${parseInt(cleanedPriceMath).toLocaleString()}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border p-2">Seguro Hotelero</td>
+                                        <td className="border p-2">{noches * huespedes}</td>
+                                        <td className="border p-2">${seguroPorNoche.toLocaleString()}</td>
+                                        <td className="border p-2">${totalSeguroHotelero.toLocaleString()}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border p-2">Huéspedes</td>
+                                        <td className="border p-2">{huespedes}</td>
                                         
-                                    </table>
-                                    <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">    
-                                        <thead>
-                                        <tr className="bg-gray-200">
-                                            <th className="border p-2">Descripción</th>
-                                            <th className="border p-2">Monto base</th>
-                                            <th className="border p-2">%</th>
-                                            <th className="border p-2">IVA</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td className="border p-2">Habitaciones</td>
-                                            <td className="border p-2">${base.toLocaleString()}</td>
-                                            <td className="border p-2">19%</td>
-                                            <td className="border p-2">${ammountIva.toLocaleString()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border p-2">Seguro Hotelero</td>
-                                            <td className="border p-2">${totalSeguroHotelero.toLocaleString()}</td>
-                                            <td className="border p-2">0%</td>
-                                            <td className="border p-2">0</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    </tr>
+                                    </tbody>
+                                </table>
 
-                                    <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
-                                        <tbody>
-                                        <tr>
-                                            <td className="border p-2 font-semibold">Subtotal</td>
-                                            <td className="border p-2">${parseInt(base +totalSeguroHotelero).toLocaleString()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border p-2 font-semibold">IVA (19%)</td>
-                                            <td className="border p-2">${parseInt(ammountIva).toLocaleString()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border p-2 font-semibold">Total (Incluye IVA)</td>
-                                            <td className="border p-2">${parseInt(cleanedPriceMath).toLocaleString()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border p-2 font-semibold">Retención en la Fuente (3.5%)</td>
-                                            <td className="border p-2">${parseInt(ammountRte).toLocaleString()}</td>
-                                        </tr>
-                                        <tr className="font-bold bg-gray-100">
-                                            <td className="border p-2">TOTAL A PAGAR</td>
-                                            <td className="border p-2 text-lg">${parseInt(totalAPagar).toLocaleString()}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
+                                        
+                                    <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className="border p-2">IMPUESTO</th>
+                                        
+                                    </tr>
+                                    </thead>
+                                    
+                                </table>
+                                <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">    
+                                    <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className="border p-2">Descripción</th>
+                                        <th className="border p-2">Monto base</th>
+                                        <th className="border p-2">%</th>
+                                        <th className="border p-2">IVA</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td className="border p-2">Habitaciones</td>
+                                        <td className="border p-2">${base.toLocaleString()}</td>
+                                        <td className="border p-2">19%</td>
+                                        <td className="border p-2">${ammountIva.toLocaleString()}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border p-2">Seguro Hotelero</td>
+                                        <td className="border p-2">${totalSeguroHotelero.toLocaleString()}</td>
+                                        <td className="border p-2">0%</td>
+                                        <td className="border p-2">0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
 
-                                    <p className="text-xs text-gray-600">
-                                        * El seguro hotelero es de 1.100 por noche y por persona.
-                                    </p>
+                                <table className="w-full border-collapse border border-gray-300 mb-4 text-sm">
+                                    <tbody>
+                                    <tr>
+                                        <td className="border p-2 font-semibold">Subtotal</td>
+                                        <td className="border p-2">${parseInt(base +totalSeguroHotelero).toLocaleString()}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border p-2 font-semibold">IVA (19%)</td>
+                                        <td className="border p-2">${parseInt(ammountIva).toLocaleString()}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border p-2 font-semibold">Total (Incluye IVA)</td>
+                                        <td className="border p-2">${parseInt(cleanedPriceMath).toLocaleString()}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border p-2 font-semibold">Retención en la Fuente (3.5%)</td>
+                                        <td className="border p-2">${parseInt(ammountRte).toLocaleString()}</td>
+                                    </tr>
+                                    <tr className="font-bold bg-gray-100">
+                                        <td className="border p-2">TOTAL A PAGAR</td>
+                                        <td className="border p-2 text-lg">${parseInt(totalAPagar).toLocaleString()}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <p className="text-xs text-gray-600">
+                                    * El seguro hotelero es de 1.100 por noche y por persona.
+                                </p>
 
 
 
 
-                                    <button onClick={handleDownloadPDF} className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-700">
-                                Descargar PDF
-                            </button>
-                </div>
+                                <button onClick={handleDownloadPDF} className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-700">
+                            Descargar PDF
+                        </button>
+            </div>
+            </Sidebar>
                 </>);
   };
   

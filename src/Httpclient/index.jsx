@@ -353,7 +353,7 @@ const GetSalesInvoice= async({token,id}) => {
   try {
     const resp = await fetch(`${config.serverRoute}/api/hotels/sigo/GetPdfSigo`, {
       method: "POST",
-      body: JSON.stringify({ token,id}),
+      body: JSON.stringify({token,id}),
       headers: {
           'Content-type': 'application/json',
       },

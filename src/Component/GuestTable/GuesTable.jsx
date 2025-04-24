@@ -120,8 +120,6 @@ const GuestTable =() =>{
         formValues.lastname
     ] 
 
-
-
     const body = {
         "type": "Customer",
         "person_type":`${person}`,

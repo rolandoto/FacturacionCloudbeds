@@ -21,8 +21,6 @@ const Header =()  =>{
     const {HotelCloubedsReservation,loadingReservationCloubeds,errorgetReservationcloubeds,loadingGetHotelCloubeds,errorgetHotelCloubeds,HotelCloubeds
     } =useSelector((state) => state.Cloubeds)
 
-    
- 
     const navigate = useNavigate();
     const handExit =() =>{
         localStorage.removeItem('jwt')
@@ -48,9 +46,7 @@ const Header =()  =>{
     const goToInvoinceRelax = () => {
         navigate(`/InvoinceRelax`);
     };
-
-
-
+    
     const fetData =async() =>{
         await getHotelCloubeds({token:jwt?.result?.TokenCloubeds,propertyID:jwt?.result?.propertyID})
     }
