@@ -416,9 +416,6 @@ const Gettaxesfree= async({propertyID,token}) => {
 };
 
 
-
-
-
 const GetTransition= async({reservationID,token}) => {
   try {
     const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/GetTransitionCloubeds`, {
@@ -507,6 +504,28 @@ const GetInvoinceDian= async({fecha}) => {
 };
 
 
+const GetAmmountAdvance= async({propertyID,startDate,endDate}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/GetAmmountAdvance`, {
+      method: "POST",
+      body: JSON.stringify({propertyID,startDate,endDate}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {data} = await resp.json();
+    return data
+    
+  } catch (error) {
+    console.error('Error in PostInformeInfomeMetricas:', error);
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
+
 
   export default {
     GetListHotel,
@@ -532,6 +551,7 @@ const GetInvoinceDian= async({fecha}) => {
     Gettaxesfree,
     GetTransition,
     GetTypePaymentSiigo,
-    GetInvoinceDian
+    GetInvoinceDian,
+    GetAmmountAdvance
   }
 

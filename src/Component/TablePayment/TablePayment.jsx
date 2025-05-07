@@ -111,7 +111,7 @@ const TablePayment =({rooms,subTotal,additionalItems,taxesFees,grandTotal,Paymen
       return resdian?.some(otherItem => otherItem.Code == item.code) && item.code != 12;
   });
 
-
+  
 
    /* const itemSeguro = useMemo(() => {
       if(combinedArrayTo.some((item) =>item.taxes)){

@@ -20,7 +20,7 @@ const CardDetailReservation =({reservationID,guestName,balanceDetailed,rooms,res
     const {trasntition,loadingtrasntition,errortrasntition} =useSelector((state) => state.Cloubeds)
 
     const fetData =async() =>{
-        await  await GetTransition({token:jwt?.result?.TokenCloubeds,reservationID:id})
+          await GetTransition({token:jwt?.result?.TokenCloubeds,reservationID:id})
     }
 
     useEffect(() =>{

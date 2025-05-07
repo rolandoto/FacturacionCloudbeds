@@ -32,7 +32,7 @@ function SidebarItem({ icon, text, expanded, to = "#", hasChildren = false, chil
         )}
       </div>
 
-      {/* Sub Items */}
+      
       {hasChildren && open && expanded && (
         <div className="ml-9 mt-1 space-y-1">
           {childrenItems.map((item, index) => (

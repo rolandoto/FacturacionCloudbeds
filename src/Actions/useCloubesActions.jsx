@@ -34,7 +34,10 @@ import { setLoadingGetHotelCloubeds,
             setErrorReservationCloubedsRangeDate,
             setTransitionLoading,
             setTransition,
-            setErrorTransition} from "../reducers/ApiCloubedsSlice";
+            setErrorTransition,
+            setAdvanceLoading,
+            setAdvance,
+            setErrorAdvance} from "../reducers/ApiCloubedsSlice";
 import { toast } from "sonner";
 import Httpclient from "../Httpclient";
 import { useDispatch } from "react-redux";
@@ -51,7 +54,7 @@ const useCloubesActions =() =>{
           setAnimationDirection('forward');
           setCurrentStep(currentStep + 1);
         }
-      };
+    };
       
     
     const getHotelCloubeds =async({token,propertyID}) =>{
@@ -302,11 +305,26 @@ const useCloubesActions =() =>{
             }
     }
 
+
+    const GetAmmountAdvance =async({propertyID,startDate,endDate}) =>{
+        dispatch(setAdvanceLoading())
+            try {
+                const response = await Httpclient.GetAmmountAdvance({propertyID,startDate,endDate})
+                if(response){
+                            dispatch(setAdvance(response)) 
+                            toast(<div className="text-green-500" >Se registro </div>)
+
+                }else{
+                            dispatch(setErrorAdvance("no found"))
+                            toast(<div className="text-red-500" >Error  registro</div>)
+                }
+                } catch (error) {
+                            dispatch(setErrorAdvance("no found"))
+                            toast(<div className="text-red-500" >Error  registro</div>)
+            }
+    }
+
     
-
-
- 
-
 
 
     return {getHotelCloubeds,
@@ -326,7 +344,8 @@ const useCloubesActions =() =>{
         setCurrentStep,
         animationDirection, 
         setAnimationDirection,
-        nextStep
+        nextStep,
+        GetAmmountAdvance
     }
 
 }

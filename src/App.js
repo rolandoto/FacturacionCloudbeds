@@ -11,29 +11,8 @@ import Price from './Page/Price/Price';
 import InvoinceRelax from './Page/InvoinceRelax';
 import Dollar from './Page/Dollar/Dollar';
 import CityDian from './Page/CityDian/CityDian';
+import Advances from './Page/Advances/Advances';
 
-
-/**
- * 
- *  <Route
-             path="/reservation/:id"
-            element={
-              <PrivateRoute>
-                <DetailReservation />
-                </PrivateRoute>
-            }
-          /> 
- * 
-           <Route
-             path="/connect/:id"
-            element={
-              <PrivateRoute>
-                <Reservation />
-                </PrivateRoute>
-            }
-          />
-       
- */
 function App() {
   return (
     <Provider  store={store}>    <BrowserRouter> 
@@ -56,7 +35,22 @@ function App() {
                 </PrivateRoute>
             }
           />
-     
+      <Route
+             path="/connect/:id"
+            element={
+              <PrivateRoute>
+                <Reservation />
+                </PrivateRoute>
+            }
+          />
+        <Route
+             path="/reservation/:id"
+            element={
+              <PrivateRoute>
+                <DetailReservation />
+                </PrivateRoute>
+            }
+          />
 
         <Route
              path="/dashboard/Cotization"
@@ -93,6 +87,17 @@ function App() {
               </PrivateRoute>
             }
       />
+
+      
+      <Route
+             path="/Cloudbeds/Advances"
+            element={
+              <PrivateRoute>
+                <Advances />
+              </PrivateRoute>
+            }
+      />
+
 
       
     </Routes> 

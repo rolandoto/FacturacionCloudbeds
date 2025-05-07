@@ -8,7 +8,7 @@ const Sidebar  =({children }) =>{
 
     const [collapsed, setCollapsed] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
-    const {jwt,setJwt} = useContext(AutoProvider)
+    const {setJwt} = useContext(AutoProvider)
     const navigate = useNavigate();
 
 
@@ -50,7 +50,7 @@ const Sidebar  =({children }) =>{
                     expanded={!collapsed}
                     hasChildren
                     childrenItems={[
-                        { text: "Anticipos", to: "/" },
+                        { text: "Anticipos", to: "/Cloudbeds/Advances" },
                     ]}
                     />
                   
@@ -93,9 +93,9 @@ const Sidebar  =({children }) =>{
                         {/* User Profile Dropdown */}
                         <div className="relative">
                             <button onClick={() => setShowMenu(!showMenu)} className="flex items-center ml-4 focus:outline-none">
-                            <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">M</div>
+                            <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">10</div>
                             <div className="ml-2 hidden md:block">
-                                <div className="text-sm font-medium">Musharof</div>
+                                <div className="text-sm font-medium">10elementos</div>
                             </div>
                             <ChevronDown size={16} className="ml-1 text-gray-600" />
                             </button>

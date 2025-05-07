@@ -51,7 +51,12 @@ export const initialState ={
 
     trasntition:[],
     loadingtrasntition:false,
-    errortrasntition:false
+    errortrasntition:false,
+
+    Advances:[],
+    LoadingAdvances:false,
+    ErrorAdvances:false
+
 
 }
 
@@ -230,6 +235,20 @@ export const ApiCloubedsSlice = createSlice({
         },
 
 
+        setAdvanceLoading:(state) =>{
+            state.LoadingAdvances=true
+            state.ErrorAdvances= null
+        },
+        setAdvance:(state,action) =>{
+            state.Advances =action.payload
+            state.LoadingAdvances= false
+        },
+        setErrorAdvance:(state) =>{
+            state.LoadingAdvances = false
+            state.ErrorAdvances = true
+        },
+
+   
     }   
 })
 
@@ -292,7 +311,15 @@ export const {  setLoadingGetHotelCloubeds,
 
                 setTransitionLoading,
                 setTransition,
-                setErrorTransition
+                setErrorTransition,
+
+
+               
+                setAdvanceLoading,
+                setAdvance,
+                setErrorAdvance,
+             
+
 
                 
 } = ApiCloubedsSlice.actions
