@@ -72,8 +72,7 @@ const Advances =() =>{
     } else if (isBefore(day, startDate)) {
       setEndDate(startDate);
       setStartDate(day);
-      
-      alert("sjdhaskjdha")
+    
     } else {
       setEndDate(day);
     }
