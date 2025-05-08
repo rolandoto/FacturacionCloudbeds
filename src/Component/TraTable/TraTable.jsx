@@ -3,12 +3,12 @@ import TraTableRow from "../TraTableRow/TraTableRow";
 
 function TraTable({ GuestTra }) {
     return (
-      <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse">
-          <TraTableHeader />
+        <div className="overflow-y-auto max-h-[800px]"> {/* Este es el scroll vertical */}
+        <table className="min-w-full border rounded-full ">
+        <TraTableHeader />
           <tbody>
             {GuestTra.map((item) => (
-              <TraTableRow key={item.Codigo_tra} item={item}  />
+              <TraTableRow key={item.Codigo_tra} item={item} />
             ))}
           </tbody>
         </table>

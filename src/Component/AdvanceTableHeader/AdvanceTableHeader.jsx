@@ -7,7 +7,7 @@ function AdvanceTableHeader() {
     ];
   
     return (
-      <thead>
+      <thead className="sticky top-0 border-b  z-10 backdrop-blur-sm bg-white/70">
         <tr className="border-b">
           {headers.map((header, idx) => (
             <th key={idx} className="py-3 px-4 text-left text-sm font-medium text-gray-600 cursor-pointer">

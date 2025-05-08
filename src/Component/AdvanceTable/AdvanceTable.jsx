@@ -3,7 +3,7 @@ import AdvanceTableRow from "../AdvanceTableRow/AdvanceTableRow";
 
 function AdvanceTable({ advances }) {
     return (
-      <div className="overflow-x-auto">
+      <div className="overflow-y-auto max-h-[800px]"> 
         <table className="min-w-full border-collapse">
           <AdvanceTableHeader />
           <tbody>
