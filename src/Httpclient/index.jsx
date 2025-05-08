@@ -53,7 +53,7 @@ const PostAutenticationDian = async({Dian}) => {
       const {data} = await resp.json();
       return data
 } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // You can re-throw the error or handle it differently based on your needs
 }
 }
@@ -73,7 +73,7 @@ const PostGetHotelCloudbeds = async ({propertyID,token}) => {
         const {data} = await resp.json();
         return data
   } catch (error) {
-      console.error('Error in PostInformeInfomeMetricas:', error);
+      
       throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -93,7 +93,7 @@ const PostGetReservationBypropertyID = async ({propertyID,token,search}) => {
         const {data} = await resp.json();
         return data
   } catch (error) {
-      console.error('Error in PostInformeInfomeMetricas:', error);
+      
       throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -115,7 +115,7 @@ const GetReservationBypropertyRangeDate = async ({propertyID,token,start,end,sea
         const {data} = await resp.json();
         return data
   } catch (error) {
-      console.error('Error in PostInformeInfomeMetricas:', error);
+      
       throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -136,7 +136,7 @@ const GetReservationDetailBypropertyID = async ({propertyID,token,reservationID}
         const {data} = await resp.json();
         return data
   } catch (error) {
-      console.error('Error in PostInformeInfomeMetricas:', error);
+      
       throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -157,7 +157,7 @@ const GetReservation = async ({propertyID,token,reservationID}) => {
         const {data} = await resp.json();
         return data
   } catch (error) {
-      console.error('Error in PostInformeInfomeMetricas:', error);
+      
       throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -177,7 +177,7 @@ const GetCitySigo  = async () => {
     const data = await resp.json();
     return data.query;
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
   }
 };
@@ -197,7 +197,7 @@ const PostRegisterCloubeds = async ({ID_Tipo_documento,ID_city,ReservationID,tok
         const data = await resp.json();
         return data
   } catch (error) {
-      console.error('Error in PostInformeInfomeMetricas:', error);
+      
       throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -217,7 +217,7 @@ const GetRegisterCloubes  = async ({id}) => {
 
     return data.query;
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
   }
 };
@@ -237,7 +237,7 @@ const PostPaymentCloubeds = async ({ReservationID,subTotal,taxesFees,additionalI
         const data = await resp.json();
         return data
   } catch (error) {
-      console.error('Error in PostInformeInfomeMetricas:', error);
+      
       throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -280,7 +280,7 @@ const PostRegisterSigoCloudbeds = async ({token,body}) => {
         const data = await resp.json();
         return data
   } catch (error) {
-      console.error('Error in PostInformeInfomeMetricas:', error);
+      
       throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -302,7 +302,7 @@ const GetProducts= async({token}) => {
     return data
     
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -324,7 +324,7 @@ const GetLisClienteDian = async({token,document}) => {
       const data = await resp.json();
       return data
 } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // You can re-throw the error or handle it differently based on your needs
 }
 };
@@ -343,7 +343,7 @@ const GetInvoincesByReservationDian  = async ({ id}) => {
     const data = await resp.json();
     return data.query;
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
   }
 };
@@ -365,7 +365,7 @@ const GetSalesInvoice= async({token,id}) => {
     return data
     
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -388,7 +388,7 @@ const GetTypePaymentSiigo= async({token}) => {
     return data
     
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -410,7 +410,7 @@ const Gettaxesfree= async({propertyID,token}) => {
     return data
     
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -432,7 +432,7 @@ const GetTransition= async({reservationID,token}) => {
     return data
     
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -456,7 +456,7 @@ const PostForwardEmail= async({token,id,Email_to,Copy_to}) => {
     return data
     
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -476,7 +476,7 @@ const RatesDollar  = async () => {
     const data = await resp.json();
     return data
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // Puedes lanzar el error nuevamente o manejarlo de otra manera según tus necesidades
   }
 };
@@ -498,7 +498,7 @@ const GetInvoinceDian= async({fecha}) => {
     return query
     
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -520,7 +520,29 @@ const GetAmmountAdvance= async({propertyID,startDate,endDate}) => {
     return data
     
   } catch (error) {
-    console.error('Error in PostInformeInfomeMetricas:', error);
+    
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
+
+const GetGuestTraCloudbeds= async({propertyID,startDate,endDate}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/GetGuestTraCloudbeds`, {
+      method: "POST",
+      body: JSON.stringify({propertyID,startDate,endDate}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {data} = await resp.json();
+    return data
+    
+  } catch (error) {
+   
     throw error; // You can re-throw the error or handle it differently based on your needs
   }
 };
@@ -552,6 +574,7 @@ const GetAmmountAdvance= async({propertyID,startDate,endDate}) => {
     GetTransition,
     GetTypePaymentSiigo,
     GetInvoinceDian,
-    GetAmmountAdvance
+    GetAmmountAdvance,
+    GetGuestTraCloudbeds
   }
 

@@ -12,6 +12,7 @@ import InvoinceRelax from './Page/InvoinceRelax';
 import Dollar from './Page/Dollar/Dollar';
 import CityDian from './Page/CityDian/CityDian';
 import Advances from './Page/Advances/Advances';
+import Tra from './Page/Tra/Tra';
 
 function App() {
   return (
@@ -84,6 +85,14 @@ function App() {
             element={
               <PrivateRoute>
                 <CityDian />
+              </PrivateRoute>
+            }
+      />
+      <Route
+            path="/Cloudbeds/Tra"
+            element={
+              <PrivateRoute>
+                <Tra />
               </PrivateRoute>
             }
       />

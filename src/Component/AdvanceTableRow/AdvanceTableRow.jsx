@@ -1,5 +1,6 @@
 import moment from "moment";
 import "moment/locale/es"; // Para formato en español
+
 function AdvanceTableRow({ item }) {
 
     const start = moment(item.guestCheckIn);
@@ -26,7 +27,6 @@ function AdvanceTableRow({ item }) {
       </tr>
     );
 }
-
 
 export default AdvanceTableRow
 

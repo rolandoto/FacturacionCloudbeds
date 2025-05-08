@@ -3,9 +3,7 @@ import Header from "../../Component/Header/Header";
 import useCloubesActions from "../../Actions/useCloubesActions";
 import  AutoProvider  from "../../UseContext.js/Autoprovider";
 import { useSelector } from "react-redux";
-import {DateRangePicker} from "@nextui-org/react";
 import moment from "moment";
-import {parseDate} from "@internationalized/date";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
@@ -149,16 +147,12 @@ const handleChangeDate = useCallback((event) => {
            
               placeholder="Buscar por nombre o ID" className="border p-2 flex-1 rounded-lg" />
             </div>
-
-
             <div className="flex gap-4 text-sm mb-4">
               <span className="px-2 py-1 bg-gray-200 rounded-lg">No facturado</span>
               <span className="px-2 py-1 bg-green-200 rounded-lg">Facturado</span>
               <span className="px-2 py-1 bg-blue-200 rounded-lg">En proceso</span>
             </div>
 
-            {/* Lista de reservas */}
-            
           {fillContent()}
    
     </div>

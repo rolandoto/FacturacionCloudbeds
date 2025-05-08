@@ -37,7 +37,10 @@ import { setLoadingGetHotelCloubeds,
             setErrorTransition,
             setAdvanceLoading,
             setAdvance,
-            setErrorAdvance} from "../reducers/ApiCloubedsSlice";
+            setErrorAdvance,
+            setGuestTraLoading,
+            setGuestTra,
+            setErrorGuestTra} from "../reducers/ApiCloubedsSlice";
 import { toast } from "sonner";
 import Httpclient from "../Httpclient";
 import { useDispatch } from "react-redux";
@@ -324,29 +327,44 @@ const useCloubesActions =() =>{
             }
     }
 
-    
-
+    const PostGuestTraCloudbeds=async({propertyID,startDate,endDate}) =>{
+        dispatch(setGuestTraLoading())
+            try {
+                const response = await Httpclient.GetGuestTraCloudbeds({propertyID,startDate,endDate})
+                if(response){
+                            dispatch(setGuestTra(response)) 
+                            toast(<div className="text-green-500" >Se registro </div>)
+                }else{
+                            dispatch(setErrorGuestTra("no found"))
+                            toast(<div className="text-red-500" >Error  registro</div>)
+                }
+                } catch (error) {
+                            dispatch(setErrorGuestTra("no found"))
+                            toast(<div className="text-red-500" >Error  registro</div>)
+            }
+    }
 
     return {getHotelCloubeds,
-        getReservationCloubeds,
-        getReservationDetailCloubeds,
-        getReservation,
-        PostRegisterCloubeds,
-        getRegisterCloubeds,
-        PostPaymentCloubeds,
-        GetPaymentCloubedsActions,
-        PostRegisterSigoCloudbeds,
-        dispatch,
-        GetTaxesFree,
-        getReservationCloubedsRangeDate,
-        GetTransition,
-        currentStep,
-        setCurrentStep,
-        animationDirection, 
-        setAnimationDirection,
-        nextStep,
-        GetAmmountAdvance
-    }
+            getReservationCloubeds,
+            getReservationDetailCloubeds,
+            getReservation,
+            PostRegisterCloubeds,
+            getRegisterCloubeds,
+            PostPaymentCloubeds,
+            GetPaymentCloubedsActions,
+            PostRegisterSigoCloudbeds,
+            dispatch,
+            GetTaxesFree,
+            getReservationCloubedsRangeDate,
+            GetTransition,
+            currentStep,
+            setCurrentStep,
+            animationDirection, 
+            setAnimationDirection,
+            nextStep,
+            GetAmmountAdvance,
+            PostGuestTraCloudbeds
+        }
 
 }
 

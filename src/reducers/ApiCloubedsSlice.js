@@ -55,8 +55,12 @@ export const initialState ={
 
     Advances:[],
     LoadingAdvances:false,
-    ErrorAdvances:false
+    ErrorAdvances:false,
 
+
+    GuestTra:[],
+    LoadingGuestTra:false,
+    ErrorGuestTra:false
 
 }
 
@@ -248,14 +252,25 @@ export const ApiCloubedsSlice = createSlice({
             state.ErrorAdvances = true
         },
 
-   
+        setGuestTraLoading:(state) =>{
+            state.LoadingGuestTra=true
+            state.ErrorGuestTra= null
+        },
+        setGuestTra:(state,action) =>{
+            state.GuestTra =action.payload
+            state.LoadingGuestTra= false
+        },
+        setErrorGuestTra:(state) =>{
+            state.LoadingGuestTra = false
+            state.ErrorGuestTra = true
+        },
+
     }   
 })
 
 export const {  setLoadingGetHotelCloubeds,
                 setGetHotelCloubeds,
                 setErrorGetHotelCloubeds,
-
 
                 setLoadingReservationCloubeds,
                 setGeReservationCloubeds,
@@ -265,45 +280,33 @@ export const {  setLoadingGetHotelCloubeds,
                 setGeReservationDetailCloubeds,
                 setErrorReservationDetailCloubeds,
 
-
                 setLoadingReservation,
                 setReservation,
                 setErrorReservation,
-
-
 
                 setLoadingRegisterCloubesd,
                 setRegisterCloubesd,
                 setErrorRegisterCloubesd,
 
-
-
-
                 setLoadingGetRegisterCloubesd,
                 setGetRegisterCloubesd,
                 setErrorGetRegisterCloubesd,
-
-
 
                 setLoadingPaymentCloubeds,
                 setPaymentCloubeds,
                 setErrorPaymentCloubeds,
 
-
                 setLoadingGetPaymentCloubeds,
                 setGetPaymentCloubeds,
                 setErrorGetPaymentCloubeds,
-
 
                 setLoadingRegisterSigo,
                 setGetRegisterSigo,
                 setErrorRegisterSigo,
                 
-
                 setTaxesfreeLoading,
                 setTaxesfree,
                 setErrorTaxesfree,
-
         
                 setLoadingReservationCloubedsRangeDate,
                 setGeReservationCloubedsRangeDate,
@@ -312,16 +315,15 @@ export const {  setLoadingGetHotelCloubeds,
                 setTransitionLoading,
                 setTransition,
                 setErrorTransition,
-
-
                
                 setAdvanceLoading,
                 setAdvance,
                 setErrorAdvance,
-             
 
+                setGuestTraLoading,
+                setGuestTra,
+                setErrorGuestTra
 
-                
 } = ApiCloubedsSlice.actions
 
 export default  ApiCloubedsSlice.reducer

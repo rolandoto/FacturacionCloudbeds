@@ -1,9 +1,9 @@
 import { ChevronDown } from "lucide-react";
 
-function AdvanceTableHeader() {
+function TraTableHeader() {
   
     const headers = [
-      "Valor","Fecha", "Metodo de pago", "Numero de habitacion", "Tipo habitacion", "Usuario", "Codigo reserva","Check-in-Check-out"
+      "Codigo tra", "Nombre completo", "Codigo reserva", "Hotel", "Fecha"
     ];
   
     return (
@@ -22,4 +22,4 @@ function AdvanceTableHeader() {
     );
   }
 
-  export default AdvanceTableHeader
+  export default TraTableHeader
