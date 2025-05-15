@@ -3,7 +3,7 @@ import TraTableRow from "../TraTableRow/TraTableRow";
 
 function TraTable({ GuestTra }) {
     return (
-        <div className="overflow-y-auto max-h-[800px]"> {/* Este es el scroll vertical */}
+        <div className="overflow-y-auto max-h-[800px]">
         <table className="min-w-full border rounded-full ">
         <TraTableHeader />
           <tbody>

@@ -20,7 +20,7 @@ const Sidebar  =({children }) =>{
     }
 
     return <>
-        <div className={`fixed left-0 top-0 h-full bg-white border-r border-gray-200 transition-all duration-300 z-30 ${collapsed ? 'w-16' : 'w-64'}`}>
+        <div className={`fixed left-0 top-0 h-full bg-white border-r border-gray-200 transition-all duration-300  ${collapsed ? 'w-16' : 'w-64'}`}>
             <div className="flex items-center p-4 border-b border-gray-200">
                 <div className="bg-indigo-600 text-white h-8 w-8 rounded-md flex items-center justify-center">
                     <Boxes size={18} />
@@ -54,6 +54,17 @@ const Sidebar  =({children }) =>{
                         { text: "Tra", to: "/Cloudbeds/Tra" },
                     ]}
                     />
+
+                    <SidebarItem
+                    icon={<LayoutDashboard size={18} />}
+                    text="Email Marketing"
+                    expanded={!collapsed}
+                    hasChildren
+                    childrenItems={[
+                        { text: "Email", to: "/Dashboard/Email" },
+                        { text: "Lista de Email", to: "/Dashboard/Emails" },
+                    ]}
+                    />
                   
             </div>
         </div>
@@ -61,7 +72,7 @@ const Sidebar  =({children }) =>{
 
         <div className={`flex-1 flex flex-col transition-all duration-300 ${collapsed ? 'ml-16' : 'ml-64'}`}>
     
-        <header className="sticky top-0 bg-white border-b border-gray-200 z-20">
+        <header className="sticky top-0 bg-white border-b border-gray-200 ">
             <div className="flex items-center justify-between px-4 py-3">
                 <div className="flex items-center">
                 <button onClick={() => setCollapsed(!collapsed)} className="p-2 rounded-md hover:bg-gray-100">
@@ -104,7 +115,7 @@ const Sidebar  =({children }) =>{
                     </button>
 
                     {showMenu && (
-                    <div className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <div className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-lg shadow-lg ">
                         <div className="p-4 border-b">
                         <p className="font-semibold text-sm">10elementos</p>
                         <p className="text-xs text-gray-500">10elementos@10esas.com</p>

@@ -13,6 +13,8 @@ import Dollar from './Page/Dollar/Dollar';
 import CityDian from './Page/CityDian/CityDian';
 import Advances from './Page/Advances/Advances';
 import Tra from './Page/Tra/Tra';
+import ListEmail from './Page/Email/ListEmail';
+import Email from './Page/Email/Email';
 
 function App() {
   return (
@@ -79,6 +81,24 @@ function App() {
             }
         />
 
+        <Route
+             path="/dashboard/Email"
+            element={
+              <PrivateRoute>
+                <Email />
+              </PrivateRoute>
+            }
+        />
+
+          <Route
+                  path="/dashboard/Emails"
+                  element={
+                    <PrivateRoute>
+                      <ListEmail />
+                    </PrivateRoute>
+                  }
+              />
+
 
       <Route
              path="/Cotization"
@@ -88,6 +108,10 @@ function App() {
               </PrivateRoute>
             }
       />
+
+      
+
+
       <Route
             path="/Cloudbeds/Tra"
             element={

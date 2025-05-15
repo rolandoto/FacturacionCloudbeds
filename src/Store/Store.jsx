@@ -3,6 +3,7 @@ import {configureStore } from '@reduxjs/toolkit'
 import {ApiListHotelSlice} from '../reducers/ApiListHotelSlice';
 import {ApiCloubedsSlice} from '../reducers/ApiCloubedsSlice';
 import {CitySigoSlice} from '../reducers/ApiCitySigo';
+import {ApiEmailSlice} from '../reducers/ApiEmailSlice';
 
 const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
 	next(action);
@@ -13,7 +14,8 @@ const store = configureStore ({
     reducer:{
         listHotel:ApiListHotelSlice.reducer,
         Cloubeds:ApiCloubedsSlice.reducer,
-        CitySigoSlice:CitySigoSlice.reducer
+        CitySigoSlice:CitySigoSlice.reducer,
+        Email:ApiEmailSlice.reducer
         },
     devTools:true,
     middleware: [persistanceLocalStorageMiddleware],

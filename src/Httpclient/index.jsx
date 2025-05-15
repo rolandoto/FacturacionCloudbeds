@@ -548,6 +548,69 @@ const GetGuestTraCloudbeds= async({propertyID,startDate,endDate}) => {
 };
 
 
+const PostGuestEmail= async({propertyID,rayEmail}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/PostResendEmail`, {
+      method: "POST",
+      body: JSON.stringify({propertyID,rayEmail}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const data = await resp.json();
+    return data
+    
+  } catch (error) {
+   
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
+
+const PostListEmail= async({propertyID}) => {
+  try {
+    const resp = await fetch(`${config.serverRoute}/api/hotels/cloubeds/PostListEmail`, {
+      method: "POST",
+      body: JSON.stringify({propertyID}),
+      headers: {
+          'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {data} = await resp.json();
+    return data
+  } catch (error) {
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
+const GetListEmail= async({Message_ID}) => {
+  try {
+    const resp = await fetch(`https://api.resend.com/emails/${Message_ID}`, {
+      method: "GET",
+      headers: {
+          'Content-type': 'application/json',
+          "Authorization": `Bearer re_CvPHw2z1_Pn55RjAU9NqUJywsDLytTSwH`,
+      },
+    });
+    if (!resp.ok) {
+      throw new Error('Response is not ok');
+    }
+    const {data} = await resp.json();
+    return data
+  } catch (error) {
+    throw error; // You can re-throw the error or handle it differently based on your needs
+  }
+};
+
+
+
+
 
   export default {
     GetListHotel,
@@ -575,6 +638,9 @@ const GetGuestTraCloudbeds= async({propertyID,startDate,endDate}) => {
     GetTypePaymentSiigo,
     GetInvoinceDian,
     GetAmmountAdvance,
-    GetGuestTraCloudbeds
+    GetGuestTraCloudbeds,
+    PostGuestEmail,
+    PostListEmail,
+    GetListEmail
   }
 

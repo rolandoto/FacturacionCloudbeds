@@ -10,7 +10,6 @@ import TraTable from "../../Component/TraTable/TraTable"
 import ExportButton from "../../Component/ExportButton/ExportButton"
 import moment from "moment"
 
-
 const Tra =() => {
     const {
         endDate,
@@ -96,7 +95,7 @@ const Tra =() => {
                 selectedDate={selectedDate}
                 startDate={startDate}
                 stardateFormat={stardateFormat}
-                />
+        />
         {FillContent()}
         </Sidebar>
         </>
