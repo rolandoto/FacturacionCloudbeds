@@ -140,11 +140,15 @@ export const People = [
     email: "zbytexpress@gmail.com"
   },
   {
-    name: "Alexis Naranjo Galarzo",
-    email: "alexis_ang_ldu12@hotmail.com"
+    name: "Camilo",
+    email: "aristizabalkamilo@hotmail.com"
   },
   {
     name: "Rolando guerrero",
     email: "Rolando22_@outlook.com"
+  },
+  {
+    name: "Jose",
+    email: "jefb.col@gmail.com"
   }
 ]
