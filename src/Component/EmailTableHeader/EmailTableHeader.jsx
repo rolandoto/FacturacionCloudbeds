@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 function EmailTableHeader() {
   
     const headers = [
-      "Email", "Estado", "Fecha", "Hotel", "Hotel"
+      "Email", "Estado", "Fecha", "Hotel"
     ];
   
     return (

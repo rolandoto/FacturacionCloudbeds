@@ -3,7 +3,6 @@ import moment from "moment";
 import "moment/locale/es"; // Para formato en español
 
 function TraTableRow({ item }) {
-
     const Date = moment(item.date).utc().format('YYYY-MM-DD HH:mm')
     return (
       <tr key={item.Codigo_tra} className="border-b hover:bg-gray-50">
