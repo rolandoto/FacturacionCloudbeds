@@ -13,7 +13,6 @@ export const People = [
   { name: "Robert Singuin", email: "rmyong@hotmal.com" },
   { name: "Nadege Porta", email: "nadegeporta@gmail.com" },
   { name: "COMPONENTES ARQUITECTONICOS S A", email: "contabilidad@componentesarquitectonicos.com" },
-  { name: "Dennis Chae Basham", email: "basham@yahoo.com" },
   { name: "Jonathan Michael Vargas", email: "jova85@gmail.com" },
   { name: "Mathleu Hugo", email: "gibaux.mathieu@gmail.com" },
   { name: "CHISTIAN PHILLIP PEÑA", email: "notienecorreo@gmail.com" },
