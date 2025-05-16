@@ -98,5 +98,6 @@ export const People = [
   { name: "Adriel Miguel Sanchez", email: "amsanchez213@gmail.com" },
   { name: "Valentina Payan Galvez", email: "valentinapayan15@gmail.com" },
   { name: "Darly Surley Morales", email: "Homer23@gmail.com" },
-  { name: "Andres Felipe Giraldo Colonia", email: "andygico@gmail.com" }
+  { name: "Andres Felipe Giraldo Colonia", email: "andygico@gmail.com" },
+  { name: "Rolando", email: "rolando22_@outlook.com" }
 ];
