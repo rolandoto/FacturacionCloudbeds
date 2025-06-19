@@ -466,7 +466,7 @@ const InvoinceRelax =() =>{
             phones:select?.phones,
           contacts:select?.contacts
           },
-          seller: 50,
+          seller: 824,
           stamp: {
             send: true
           },
