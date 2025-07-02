@@ -55,8 +55,8 @@ const Tra =() => {
         }
 
         const dataFDilter = GuestTra.map((item) =>{
-
-            const Date = moment(item.date).utc().format('YYYY-MM-DD HH:mm')
+            
+            const Date = moment(item.Date).utc().format('YYYY-MM-DD HH:mm')
            
            return  {
                 Codigo:item.Codigo_tra,
