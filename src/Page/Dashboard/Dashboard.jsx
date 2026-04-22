@@ -1,252 +1,124 @@
-import React from "react"
+import React from "react";
+import {
+  Bed,
+  Building2,
+  Check,
+  ChevronDown,
+  Eye,
+  Settings,
+  User,
+  Users,
+} from "lucide-react";
 import Sidebar from "../../Component/Sidebar/Sidebar";
-import { Users, Package, MoreVertical } from 'lucide-react';
-import { BarChart as RechartsBarChart, Bar, XAxis, CartesianGrid, ResponsiveContainer, 
-  AreaChart, Area, YAxis } from 'recharts';
 
-  
+const checkInData = [
+  { id: "6670428772023", guests: 1, name: "MATTIS THEODOR VALENTINO LOHSS" },
+  { id: "1386051088550", guests: 1, name: "ANNEMIEK GERARDINA MARIA VAN DOMMELEN" },
+  { id: "8658675184739", guests: 1, name: "MAHDI GOUDARZI" },
+  { id: "7516197457009", guests: 1, name: "JAWED JAMSHIDI" },
+  { id: "2189793384362", guests: 1, name: "KRZYSZTOF PYTLOS" },
+];
 
-const Dashboard = () =>{
+const checkOutData = [
+  { id: "9771910096877", guests: 1, name: "CARLTON ETHAN", tra: true },
+  { id: "6558108188978", guests: 1, name: "ANA ORDUÑO", tra: true },
+  { id: "3356362705736", guests: 1, name: "Sam de Groot", tra: true },
+  { id: "1537861252778", guests: 1, name: "LUCCA CLERMONTS", tra: true },
+  { id: "2727542231422", guests: 2, name: "AARON DORIAN SEITZ", tra: true },
+];
 
+const GuestCard = ({ guest, showTra = false }) => (
+  <article className="mb-3 rounded-md border border-gray-200 bg-white px-4 py-4 shadow-sm last:mb-0">
+    <div className="flex items-start justify-between gap-4">
+      <div className="min-w-0">
+        <h3 className="text-xl font-medium tracking-wide text-gray-700">{guest.name}</h3>
+        <p className="mt-1 text-sm text-gray-500">ID: {guest.id}</p>
+      </div>
 
-  const monthlyData = [
-    { name: 'Jan', value: 180 },
-    { name: 'Feb', value: 350 },
-    { name: 'Mar', value: 200 },
-    { name: 'Apr', value: 320 },
-    { name: 'May', value: 180 },
-    { name: 'Jun', value: 190 },
-    { name: 'Jul', value: 320 },
-    { name: 'Aug', value: 90 },
-    { name: 'Sep', value: 200 },
-    { name: 'Oct', value: 320 },
-    { name: 'Nov', value: 280 },
-    { name: 'Dec', value: 90 },
-  ];
-  
-  // Area chart data
-  const areaData = Array(30).fill().map((_, i) => {
-    return {
-      name: i,
-      value1: Math.floor(Math.random() * 50) + 150,
-      value2: Math.floor(Math.random() * 50) + 50
-    };
-  });
+      <div className="mt-1 flex items-center gap-1 rounded-full bg-gray-50 px-2 py-1 text-xs text-gray-500">
+        <User size={12} /> x{guest.guests}
+      </div>
+    </div>
 
+    <div className="mt-4 flex justify-end gap-2">
+      <span className="inline-flex items-center gap-2 rounded-md bg-gray-50 px-3 py-2 text-xs font-medium tracking-wide text-gray-600">
+        SIRE
+        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-lime-500 text-white">
+          <Check size={14} />
+        </span>
+      </span>
 
-    return <>
-              <div >
-              <Sidebar>
-                <div className={`flex-1 flex flex-col transition-all duration-300 `}>
-                <main className="flex-1 overflow-y-auto p-4 bg-gray-50">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                  
-                    <div className="bg-white rounded-lg shadow p-6">
-                      <div className="flex items-center mb-4">
-                        <div className="p-2 bg-gray-100 rounded-md">
-                          <Users size={24} className="text-gray-500" />
-                        </div>
-                        <div className="ml-4">
-                          <p className="text-sm text-gray-500">Customers</p>
-                          <h3 className="text-2xl font-bold">3,782</h3>
-                        </div>
-                        <div className="ml-auto">
-                          <span className="flex items-center text-sm font-medium text-green-500">
-                            <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                            </svg>
-                            11.01%
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+      {showTra && guest.tra && (
+        <span className="inline-flex items-center gap-2 rounded-md bg-gray-50 px-3 py-2 text-xs font-medium tracking-wide text-gray-600">
+          TRA
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-lime-500 text-white">
+            <Check size={14} />
+          </span>
+        </span>
+      )}
+    </div>
+  </article>
+);
 
-                
-                    <div className="bg-white rounded-lg shadow p-6">
-                      <div className="flex items-center mb-4">
-                        <div className="p-2 bg-gray-100 rounded-md">
-                          <Package size={24} className="text-gray-500" />
-                        </div>
-                        <div className="ml-4">
-                          <p className="text-sm text-gray-500">Orders</p>
-                          <h3 className="text-2xl font-bold">5,359</h3>
-                        </div>
-                        <div className="ml-auto">
-                          <span className="flex items-center text-sm font-medium text-red-500">
-                            <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                            </svg>
-                            9.05%
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+const ListPanel = ({ title, count, items, showTra = false }) => (
+  <section className="rounded-md border border-gray-200 bg-gray-50/50 p-3">
+    <header className="mb-3 flex items-center justify-between border-b border-gray-200 pb-3">
+      <div className="flex items-center gap-2 text-gray-700">
+        <Bed size={16} className="text-cyan-500" />
+        <h2 className="text-base font-medium">{title}</h2>
+      </div>
+      <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-sky-100 px-2 text-xs font-semibold text-sky-700">
+        {count}
+      </span>
+    </header>
 
-                  
-                    <div className="bg-white rounded-lg shadow p-6">
-                      <div className="flex justify-between items-center mb-4">
-                        <div>
-                          <h3 className="text-lg font-semibold">Monthly Target</h3>
-                          <p className="text-sm text-gray-500">Target you've set for each month</p>
-                        </div>
-                        <div>
-                          <button className="text-gray-400 hover:text-gray-600">
-                            <MoreVertical size={18} />
-                          </button>
-                        </div>
-                      </div>
-                      
-                      <div className="flex justify-center">
-                        <div className="relative w-40 h-40">
-                          <svg viewBox="0 0 100 100" className="transform -rotate-90">
-                            <circle 
-                              cx="50" cy="50" r="45" 
-                              fill="none" 
-                              stroke="#EDF2F7" 
-                              strokeWidth="10" 
-                            />
-                            <circle 
-                              cx="50" cy="50" r="45" 
-                              fill="none" 
-                              stroke="#4F46E5" 
-                              strokeWidth="10" 
-                              strokeDasharray="282.7" 
-                              strokeDashoffset="70" 
-                              strokeLinecap="round"
-                            />
-                          </svg>
-                          <div className="absolute inset-0 flex flex-col items-center justify-center">
-                            <span className="text-3xl font-bold">75.55%</span>
-                            <span className="text-sm text-green-500">+10%</span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="text-center mt-4">
-                        <p className="text-sm">
-                          You earn $3287 today, it's higher than last month.
-                        </p>
-                        <p className="text-sm font-medium">
-                          Keep up your good work!
-                        </p>
-                      </div>
-                      
-                      <div className="flex justify-between mt-6">
-                        <div className="text-center">
-                          <p className="text-xs text-gray-500">Target</p>
-                          <p className="font-semibold flex items-center justify-center">
-                            $20K
-                            <svg className="w-3 h-3 ml-1 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                            </svg>
-                          </p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-xs text-gray-500">Revenue</p>
-                          <p className="font-semibold flex items-center justify-center">
-                            $20K
-                            <svg className="w-3 h-3 ml-1 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                            </svg>
-                          </p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-xs text-gray-500">Today</p>
-                          <p className="font-semibold flex items-center justify-center">
-                            $20K
-                            <svg className="w-3 h-3 ml-1 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                            </svg>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+    {items.map((guest) => (
+      <GuestCard key={guest.id} guest={guest} showTra={showTra} />
+    ))}
+  </section>
+);
 
-              
-                  <div className="bg-white rounded-lg shadow p-6 mb-6">
-                    <div className="flex justify-between items-center mb-6">
-                      <h2 className="text-lg font-semibold">Monthly Sales</h2>
-                      <button className="text-gray-400 hover:text-gray-600">
-                        <MoreVertical size={18} />
-                      </button>
-                    </div>
-                    <div className="h-64">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <RechartsBarChart data={monthlyData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                          <CartesianGrid vertical={false} stroke="#f5f5f5" />
-                          <XAxis 
-                            dataKey="name" 
-                            axisLine={false}
-                            tickLine={false}
-                            tick={{ fontSize: 12, fill: '#718096' }}
-                          />
-                          <Bar dataKey="value" fill="#4F46E5" radius={[4, 4, 0, 0]} />
-                        </RechartsBarChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </div>
+const Dashboard = () => {
+  return (
+    <Sidebar>
+      <main className="h-screen overflow-y-auto bg-[#f7f9fb] p-4 md:p-6">
+        <div className="mx-auto max-w-7xl rounded-md border border-gray-200 bg-white">
+          <div className="border-b border-gray-200 px-4 py-3 md:px-6">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <button className="inline-flex items-center gap-2 rounded-md border border-gray-200 bg-slate-50 px-3 py-2 text-sm text-gray-600">
+                <Building2 size={16} className="text-slate-500" />
+                Masaya Medellín
+                <ChevronDown size={15} />
+              </button>
 
-                
-                  <div className="bg-white rounded-lg shadow p-6">
-                    <div className="flex justify-between items-center mb-4">
-                      <div>
-                        <h2 className="text-lg font-semibold">Statistics</h2>
-                        <p className="text-sm text-gray-500">Target you've set for each month</p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <button className="px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded-md">Monthly</button>
-                        <button className="px-3 py-1 text-sm text-gray-600 rounded-md">Quarterly</button>
-                        <button className="px-3 py-1 text-sm text-gray-600 rounded-md">Annually</button>
-                      </div>
-                    </div>
-                    <div className="h-64">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={areaData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                          <defs>
-                            <linearGradient id="colorValue1" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="#4F46E5" stopOpacity={0.2} />
-                              <stop offset="95%" stopColor="#4F46E5" stopOpacity={0} />
-                            </linearGradient>
-                            <linearGradient id="colorValue2" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="#A5B4FC" stopOpacity={0.2} />
-                              <stop offset="95%" stopColor="#A5B4FC" stopOpacity={0} />
-                            </linearGradient>
-                          </defs>
-                          <YAxis 
-                            tickCount={6} 
-                            domain={[0, 300]} 
-                            axisLine={false}
-                            tickLine={false}
-                            tick={{ fontSize: 12, fill: '#718096' }}
-                          />
-                          <CartesianGrid vertical={false} stroke="#f5f5f5" />
-                          <Area 
-                            type="monotone" 
-                            dataKey="value1" 
-                            stroke="#4F46E5" 
-                            fillOpacity={1} 
-                            fill="url(#colorValue1)" 
-                          />
-                          <Area 
-                            type="monotone" 
-                            dataKey="value2" 
-                            stroke="#A5B4FC" 
-                            fillOpacity={1} 
-                            fill="url(#colorValue2)" 
-                          />
-                        </AreaChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </div>
-                </main>
+              <div className="flex items-center gap-4 text-slate-500">
+                <Eye size={16} className="cursor-pointer" />
+                <Settings size={16} className="cursor-pointer" />
+                <span className="text-sm font-medium text-sky-600">TRA &amp; SIRE Connect</span>
               </div>
-              </Sidebar>
-              </div>
-            </>
+            </div>
 
-}
+            <div className="mt-4 flex h-2 w-full overflow-hidden rounded-full bg-gray-100">
+              <div className="w-1/2 bg-cyan-400" />
+              <div className="w-1/2 bg-sky-500" />
+            </div>
+          </div>
 
-export default Dashboard
+          <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 md:p-6">
+            <ListPanel title="Check-in completados" count={10} items={checkInData} />
+            <ListPanel title="Check-out completados" count={19} items={checkOutData} showTra />
+          </div>
 
+          <footer className="flex items-center justify-between border-t border-gray-200 px-4 py-3 text-xs text-gray-400 md:px-6">
+            <span>Actualizado hace 2 minutos</span>
+            <span className="inline-flex items-center gap-1">
+              <Users size={13} /> 42 huéspedes procesados hoy
+            </span>
+          </footer>
+        </div>
+      </main>
+    </Sidebar>
+  );
+};
 
+export default Dashboard;
