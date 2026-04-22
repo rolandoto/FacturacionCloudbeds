@@ -15,6 +15,7 @@ import Advances from './Page/Advances/Advances';
 import Tra from './Page/Tra/Tra';
 import ListEmail from './Page/Email/ListEmail';
 import Email from './Page/Email/Email';
+import TraSireConfig from './Page/TraSireConfig/TraSireConfig';
 
 function App() {
   return (
@@ -122,6 +123,16 @@ function App() {
       />
 
       
+
+      <Route
+             path="/Cloudbeds/Configuracion"
+            element={
+              <PrivateRoute>
+                <TraSireConfig />
+              </PrivateRoute>
+            }
+      />
+
       <Route
              path="/Cloudbeds/Advances"
             element={

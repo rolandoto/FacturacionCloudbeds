@@ -52,6 +52,7 @@ const Sidebar  =({children }) =>{
                     childrenItems={[
                         { text: "Anticipos", to: "/Cloudbeds/Advances" },
                         { text: "Tra", to: "/Cloudbeds/Tra" },
+                        { text: "Configuración TRA/SIRE", to: "/Cloudbeds/Configuracion" },
                     ]}
                     />
 
